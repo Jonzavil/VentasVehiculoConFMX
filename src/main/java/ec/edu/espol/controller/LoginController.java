@@ -9,7 +9,9 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 
 /**
@@ -20,11 +22,9 @@ import javafx.scene.layout.GridPane;
 public class LoginController implements Initializable {
 
     @FXML
-    private GridPane griplogin;
+    private Button btniniciarsesion;
     @FXML
-    private TextField logincorreo;
-    @FXML
-    private TextField logincontras;
+    private Button btnregistrarse;
 
     /**
      * Initializes the controller class.
@@ -33,5 +33,13 @@ public class LoginController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
     }    
+
+    @FXML
+    private void credenciales(MouseEvent event) {
+    }
+
+    @FXML
+    private void ingresardatos(MouseEvent event) {
+    }
     
 }
