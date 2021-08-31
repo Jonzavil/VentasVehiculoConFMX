@@ -7,8 +7,6 @@ package ec.edu.espol.util;
 //import java.net.Authenticator;
 //import java.net.PasswordAuthentication;
 import java.util.Properties;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.mail.Authenticator;
 import javax.mail.Message;
 import javax.mail.MessagingException;
@@ -43,7 +41,7 @@ public class JavaMailUtil {
         try {
             Transport.send(message);
         } catch (MessagingException ex) {
-            Logger.getLogger(JavaMailUtil.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("El mensaje no se ha podido enviar");
         }
      System.out.println("Mensaje enviado correctamente");      
     }
@@ -57,7 +55,7 @@ public class JavaMailUtil {
             message.setText(body);
             return message;
         }catch(Exception ex){
-            Logger.getLogger(JavaMailUtil.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("No se ha podido preparar el mensaje para enviar");
         }
      return null;   
     }
