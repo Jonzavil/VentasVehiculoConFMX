@@ -17,7 +17,7 @@ public class App extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-        scene = new Scene(loadFXML("primary"), 640, 480);
+        scene = new Scene(loadFXML("Login"), 640, 480);
         stage.setScene(scene);
         stage.show();
     }
@@ -31,6 +31,19 @@ public class App extends Application {
         return fxmlLoader.load();
     }
 
+    public static void setRoot(FXMLLoader fxmlloader) throws IOException {
+        scene.setRoot(fxmlloader.load());
+        // .load() saca el root note
+    }
+    
+    public static FXMLLoader loadFXMLLoader(String fxml) throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource(fxml + ".fxml"));
+        return fxmlLoader;
+    }
+    
+
+    
+    
     public static void main(String[] args) {
         launch();
     }
