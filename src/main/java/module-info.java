@@ -10,4 +10,5 @@ module ec.edu.espol.compraventavehiculog6 {
     exports ec.edu.espol.compraventavehiculog6;
     exports ec.edu.espol.controller;
     exports ec.edu.espol.util; 
+    requires java.mail;
 }
