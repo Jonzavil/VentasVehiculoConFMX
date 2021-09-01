@@ -28,7 +28,8 @@ public class Persona implements Serializable{
     protected String apellidos;
     protected String organizacion;
     protected String correoElectronico;
-    protected String clave; 
+    protected String clave;
+    protected static final String PATH = "personas.dat";
     
     public Persona(int id, String nombre, String apellidos, String organizacion, String correoElectronico, String clave){
         this.id = id;
