@@ -7,7 +7,12 @@ package ec.edu.espol.model;
 
 import ec.edu.espol.util.JavaMailUtil;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -49,32 +54,35 @@ public class Oferta {
     public void setPrecioOfertar(double precioOfertar) {
         this.precioOfertar = precioOfertar;
     }
-    public void saveFile(String nomfile){
-         try(PrintWriter pw = new PrintWriter(new FileOutputStream(new File(nomfile),true)))
-        {
-            pw.println(this.correo+"|"+this.precioOfertar+"|"+this.placa);
-        }
-        catch(Exception e){
-            System.out.println(e.getMessage());
+    public static void saveFile(String name, ArrayList<Oferta> ofertas){
+        try{
+            FileOutputStream fous =new FileOutputStream(name);
+            ObjectOutputStream out = new ObjectOutputStream(fous);
+            out.writeObject(ofertas);
+            out.flush();    
+        }catch(FileNotFoundException ex){
+            System.out.println(ex.getMessage());
+        } catch (IOException ex) {
+            System.out.println(ex.getMessage());
         }
     }
-    public static ArrayList<Oferta> readFile(String nomFile){
-        ArrayList<Oferta> ofertas = new ArrayList<>();
-        try(Scanner sc = new Scanner(new File(nomFile))){
-            while(sc.hasNextLine())
-            {
-                String linea = sc.nextLine();
-                String[] tokens = linea.split("\\|");
-                Oferta o;
-                o = new Oferta(Double.parseDouble(tokens[1]),tokens[0],tokens[2]);
-                ofertas.add(o);
-            }
-        }
-        catch(Exception e){
-            System.out.println(e.getMessage());
+    public static ArrayList<Oferta> readFile(String name){
+        ArrayList<Oferta> ofertas=new ArrayList<>();
+        try{
+            FileInputStream fis =new FileInputStream(name);
+            ObjectInputStream oin = new ObjectInputStream(fis);
+            ofertas =(ArrayList<Oferta>)oin.readObject();
+            return ofertas;           
+        }catch(FileNotFoundException ex){
+            System.out.println(ex.getMessage());
+        } catch (IOException ex) {
+            System.out.println(ex.getMessage());
+        } catch (ClassNotFoundException ex) {
+            System.out.println(ex.getMessage());
         }
         return ofertas;
-    }
+    } 
+
     public static ArrayList<Oferta> ofertarPorVehiculo(String nomfile,String nomfileVehiculo,String nomfileComprador){
         Scanner sc=new Scanner(System.in);
         System.out.println("Ingrese Correo Electronico: ");
