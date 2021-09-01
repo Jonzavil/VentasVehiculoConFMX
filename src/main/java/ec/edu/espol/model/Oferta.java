@@ -87,7 +87,7 @@ public class Oferta {
         int cont=0;
         Vehiculo aV[];
         if(Comprador.compararCorreoYContraseña(nomfileComprador, correo, clave)){
-            vn=Vehiculo.busquedaPorVehiculo(nomfileVehiculo);
+            vn=Vehiculo.busquedaPorVehiculo("codificar para que reciba un tipo de vehiculo");
             aV=new Vehiculo[vn.size()];
             for(Vehiculo v:vn){
                 aV[cont]=v;

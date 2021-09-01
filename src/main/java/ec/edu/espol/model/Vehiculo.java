@@ -6,9 +6,13 @@
 package ec.edu.espol.model;
 
 import ec.edu.espol.util.Util;
-import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.PrintWriter;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Scanner;
@@ -16,7 +20,7 @@ import java.util.Scanner;
  *
  * @author David
  */
-public class Vehiculo {
+public class Vehiculo implements Serializable {
     private int id;
     private String placa;
     private String marca;
@@ -30,7 +34,8 @@ public class Vehiculo {
     private String vidrios;
     private String transmision;
     private String traccion;
-    
+    private static final long serialVersionUID = 8799656478674716638L;  
+    private static final String PATH = "vehiculos.dat";
     public Vehiculo(int id, String placa, String marca, String modelo, String tipoMotor, int año, double recorrido, String color, String tipoCombustible, double precio, String vidrios, String transmision, String traccion){
       this.id = id;
       this.placa = placa;
@@ -208,29 +213,32 @@ public class Vehiculo {
         hash = 97 * hash + Objects.hashCode(this.placa);
         return hash;
     }
-    public void saveFile(String nomfile){
-         try(PrintWriter pw = new PrintWriter(new FileOutputStream(new File(nomfile),true)))
-        {
-            pw.println(this.id+"|"+this.placa+"|"+this.marca+"|"+this.modelo+"|"+this.tipoMotor+"|"+this.año+"|"+this.recorrido+"|"+this.color+"|"+this.tipoCombustible+"|"+this.precio+"|"+this.vidrios+"|"+this.transmision+"|"+this.traccion);
-        }
-        catch(Exception e){
-            System.out.println(e.getMessage());
+    public void saveFile(String nomfile, ArrayList<Vehiculo> vehiculos){
+         try{
+            FileOutputStream fous =new FileOutputStream(nomfile);
+            ObjectOutputStream out = new ObjectOutputStream(fous);
+            out.writeObject(vehiculos);
+            out.flush();
+            
+        }catch(FileNotFoundException ex){
+            System.out.println(ex.getMessage());
+        } catch (IOException ex) {
+            System.out.println(ex.getMessage());
         }
     }
     public static ArrayList<Vehiculo> readFile(String nomFile){
         ArrayList<Vehiculo> vehiculos = new ArrayList<>();
-        try(Scanner sc = new Scanner(new File(nomFile))){
-            while(sc.hasNextLine())
-            {
-                String linea = sc.next();
-                String[] tokens = linea.split("\\|");
-                Vehiculo v;
-                v = new Vehiculo(Integer.parseInt(tokens[0]),tokens[1],tokens[2],tokens[3],tokens[4],Integer.parseInt(tokens[5]),Double.parseDouble(tokens[6]),tokens[7],tokens[8],Double.parseDouble(tokens[9]),tokens[10],tokens[11],tokens[12]);
-                vehiculos.add(v);
-            }
-        }
-        catch(Exception e){
-            System.out.println(e.getMessage());
+        try{
+            FileInputStream fis =new FileInputStream(nomFile);
+            ObjectInputStream oin = new ObjectInputStream(fis);
+            vehiculos =(ArrayList<Vehiculo>)oin.readObject();
+            return vehiculos;           
+        }catch(FileNotFoundException ex){
+            System.out.println(ex.getMessage());
+        } catch (IOException ex) {
+            System.out.println(ex.getMessage());
+        } catch (ClassNotFoundException ex) {
+            System.out.println(ex.getMessage());
         }
         return vehiculos;
     }
@@ -242,168 +250,43 @@ public class Vehiculo {
         }
         return vn;
     }
-     public static Vehiculo registroVehiculo(Scanner sc, String nomfile,String nomfilevendedor){
-         ArrayList<Vehiculo> vehiculos = Vehiculo.readFile(nomfile);
-         Vehiculo v1;
-         int id = Util.nextID(nomfile);
-         System.out.println("Ingrese el correo electrónico: ");
-         String correo = sc.next();
-         System.out.println("Ingrese su clave: ");
-         String clave = sc.next();
-         //System.out.println("Ingrese el tipo, si es auto ingrese auto, si es camioneta ingrese camioneta, si es moto ingrese moto: ");
-         //String tipo = sc.next();
-         if(Vendedor.compararCorreoYContraseña(nomfilevendedor, correo, clave)){
-             System.out.println("Ingrese el tipo, si es auto ingrese auto, si es camioneta ingrese camioneta, si es moto ingrese moto: ");
-             String tipo = sc.next().toLowerCase();
+     public static Vehiculo registroVehiculo(String tipo,String placa, String marca, String modelo, String tipoMotor, int año, double recorrido, String color, String tipoCombustible, double precio, String vidrios, String transmision, String traccion){
+         ArrayList<Vehiculo> vehiculos = Vehiculo.readFile(PATH);
+         Vehiculo v1 = null;
+         int id = Util.nextID(PATH);
+         if(!searchByPlaca(vehiculos,placa).equals(placa)){
              switch (tipo) {
                  case "moto":
                  {
-                     System.out.println("Ingrese la placa: ");
-                     String placa = sc.next();
-                     System.out.println("Ingrese la marca: ");
-                     String marca = sc.next();
-                     System.out.println("Ingrese el modelo: ");
-                     String modelo = sc.next();
-                     System.out.println("Ingrese el tipo de motor: ");
-                     String tipomotor = sc.next();
-                     System.out.println("Ingrese el año: ");
-                     int año = sc.nextInt();
-                     System.out.println("Ingrese el recorrido: ");
-                     double recorrido = sc.nextDouble();
-                     System.out.println("Ingrese el color: ");
-                     String color = sc.next();
-                     System.out.println("Ingrese el tipo de combustible");
-                     String combustible = sc.next();
-                     System.out.println("Ingrese el precio: ");
-                     double precio = sc.nextDouble();
-                     if(!placa.equals(Vehiculo.searchByPlaca(vehiculos, placa))){
-                         v1 = new Vehiculo(id,placa,marca,modelo,tipomotor,año,recorrido,color,combustible,precio);
-                         v1.saveFile(nomfile);
-                         return v1;
-                     }else
-                         return null;
+                     v1 = new Vehiculo(id,placa,marca,modelo,tipoMotor,año,recorrido,color,tipoCombustible,precio);
+                     v1.saveFile(PATH,vehiculos);
+                     return v1;
                  }
                  case "camioneta":
                  {
-                     System.out.println("Ingrese la placa: ");
-                     String placa = sc.next();
-                     System.out.println("Ingrese la marca: ");
-                     String marca = sc.next();
-                     System.out.println("Ingrese el modelo: ");
-                     String modelo = sc.next();
-                     System.out.println("Ingrese el tipo de motor: ");
-                     String tipomotor = sc.next();
-                     System.out.println("Ingrese el año: ");
-                     int año = sc.nextInt();
-                     System.out.println("Ingrese el recorrido: ");
-                     double recorrido = sc.nextDouble();
-                     System.out.println("Ingrese el color: ");
-                     String color = sc.next();
-                     System.out.println("Ingrese el tipo de combustible");
-                     String combustible = sc.next();
-                     System.out.println("Ingrese el tipo de vidrios: ");
-                     String vidrios = sc.next();
-                     System.out.println("Ingrese el tipo de transmision: ");
-                     String transmision = sc.next();
-                     System.out.println("Ingrese el tipo de traccion: ");
-                     String traccion = sc.next();
-                     System.out.println("Ingrese el precio: ");
-                     double precio = sc.nextDouble();
-                     if(!placa.equals(Vehiculo.searchByPlaca(vehiculos, placa))){
-                         v1 = new Vehiculo(id,placa,marca,modelo,tipomotor,año,recorrido,color,combustible,precio,vidrios,transmision,traccion);
-                         v1.saveFile(nomfile);
-                         return v1;
-                     }else
-                         return null;
+                     v1 = new Vehiculo(id,placa,marca,modelo,tipoMotor,año,recorrido,color,tipoCombustible,precio,vidrios,transmision,traccion);
+                     v1.saveFile(PATH,vehiculos);
+                     return v1;
                  }       
                  case "auto":
                  {
-                     System.out.println("Ingrese la placa: ");
-                     String placa = sc.next();
-                     System.out.println("Ingrese la marca: ");
-                     String marca = sc.next();
-                     System.out.println("Ingrese el modelo: ");
-                     String modelo = sc.next();
-                     System.out.println("Ingrese el tipo de motor: ");
-                     String tipomotor = sc.next();
-                     System.out.println("Ingrese el año: ");
-                     int año = sc.nextInt();
-                     System.out.println("Ingrese el recorrido: ");
-                     double recorrido = sc.nextDouble();
-                     System.out.println("Ingrese el color: ");
-                     String color = sc.next();
-                     System.out.println("Ingrese el tipo de combustible");
-                     String combustible = sc.next();
-                     System.out.println("Ingrese el tipo de vidrios: ");
-                     String vidrios = sc.next();
-                     System.out.println("Ingrese el tipo de transmision: ");
-                     String transmision = sc.next();
-                     System.out.println("Ingrese el precio: ");
-                     double precio = sc.nextDouble();
-                     if(!placa.equals(Vehiculo.searchByPlaca(vehiculos, placa))){
-                         v1 = new Vehiculo(id,placa,marca,modelo,tipomotor,año,recorrido,color,combustible,precio,vidrios,transmision);
-                         v1.saveFile(nomfile);
-                         return v1;
-                     }else
-                         return null;
+                     v1 = new Vehiculo(id,placa,marca,modelo,tipoMotor,año,recorrido,color,tipoCombustible,precio,vidrios,transmision);
+                     v1.saveFile(PATH,vehiculos);
+                     return v1;
                  }
                  default:
-                     System.out.println("EL tipo es incorrecto.");
                      break;
              }
          }else
-             System.out.println("Correo o Contraseña Incorrecta");
-         return null;
+            return v1;
+        return null;
      } 
-     public static ArrayList<Vehiculo> busquedaPorVehiculo(String nomfileVehi){
-        ArrayList<Vehiculo> v1=new ArrayList<>();
-                v1=Vehiculo.readFile(nomfileVehi);
+     public static ArrayList<Vehiculo> busquedaPorVehiculo(String tipo){
+        ArrayList<Vehiculo> v1=Vehiculo.readFile(PATH);
         ArrayList<Vehiculo> ofer=new ArrayList<>();
-        Scanner sc=new Scanner(System.in);
-        int cont=0;
-        do{
-            System.out.println("Digite tipo,recorrido,año y precio(ingresar en el orden indicado, no es necesario ingresar todos los elementos si usa mas de uno separe con comas \"(,)\"): ");
-            String opciones=sc.next().toLowerCase();
-            if(opciones.contains(",")){
-                String o[]=opciones.split(",");
-                for(Vehiculo v:v1){
-                    if(o.length==2){
-                        if(o[0].equals("moto")||o[0].equals("camioneta")||o[0].equals("auto") && o[1].equals(v.getRecorrido())){
-                            ofer.add(v);
-                            cont=cont+1;
-                        }
-                    }if(o.length==3){
-                        if(o[0].equals("moto")||o[0].equals("camioneta")||o[0].equals("auto") && o[1].equals(v.getRecorrido())&& o[2].equals(v.getAño())){
-                            ofer.add(v);
-                            cont=cont+1;
-                        }
-                        
-                    }if(o.length==4){
-                        if(o[0].equals("moto")||o[0].equals("camioneta")||o[0].equals("auto") && o[1].equals(v.getRecorrido())&& o[2].equals(v.getAño())&&o[3].equals(v.getPrecio())){
-                            ofer.add(v);
-                            cont=cont+1;
-                        }
-                    }
-                }
-            }else if(opciones.equals("moto")||opciones.equals("camioneta")||opciones.equals("auto") ){
-                for(Vehiculo v:v1){
-                    if(v.getVidrios().equals("null")&&opciones.equals("moto")){
-                        ofer.add(v);
-                        cont=cont+1;
-                    }
-                    if(v.getTraccion().equals("null")&&opciones.equals("auto")){
-                        ofer.add(v);
-                        cont=cont+1;
-                    }
-                    if(!v.getTraccion().equals("null")&&opciones.equals("camioneta")){
-                        ofer.add(v);
-                        cont=cont+1;
-                    }
-                    }
-            }else{
-                System.out.println("VALOR INVALIDO");
-            }
-        }while(cont!=v1.size());
+        for(Vehiculo v: v1){
+            //// detallar el tipo de busqueda
+        }
         return ofer;        
     }
 }
