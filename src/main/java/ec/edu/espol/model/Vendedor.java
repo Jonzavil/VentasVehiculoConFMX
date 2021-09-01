@@ -5,17 +5,8 @@
  */
 package ec.edu.espol.model;
 
-import ec.edu.espol.model.Persona;
 import ec.edu.espol.util.Util;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.io.Serializable;
-import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -30,14 +21,8 @@ public class Vendedor extends Persona implements Serializable{
         super(id,nombres,apellidos,organizacion,correoElectronico,clave);
     }     
     public static boolean nextVendedorFx( String nombres, String apellidos, String organizacion, String correo, String clave){
-<<<<<<< HEAD
         ArrayList<Persona> personas = Persona.readFile(PATH);
-        Persona temp = null;
-        temp = Persona.searchByCorreo(personas, correo);
-=======
-        ArrayList<Persona> personas = Persona.readFile(PATH);     
-        Persona temp =Persona.searchByCorreo(personas, correo);
->>>>>>> 5b8e7e901120b0aff13f64f47905f864c4739540
+        Persona temp = Persona.searchByCorreo(personas, correo);
         if (temp !=null){
             if( temp instanceof Vendedor){
                 System.out.println("Hacer excepcion para correo repetido");
@@ -56,7 +41,6 @@ public class Vendedor extends Persona implements Serializable{
              Persona.saveFile(PATH, personas);
              return true;
             }
-        
     } 
     public static Vendedor registroVendedor(Scanner sc, String nomfile){
          ArrayList<Persona> personas = Persona.readFile(PATH);
