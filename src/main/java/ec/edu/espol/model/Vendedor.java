@@ -5,10 +5,8 @@
  */
 package ec.edu.espol.model;
 
-import ec.edu.espol.util.Util;
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Scanner;
 
 /**
  *
@@ -28,14 +26,12 @@ public class Vendedor extends Persona implements Serializable{
                 System.out.println("Hacer excepcion para correo repetido");
                 return false;
             }else{
-             int id = Util.nextID(personas);
              Vendedor v1 = new Vendedor(clave, nombres,apellidos,organizacion,correo,clave);
              personas.add(v1);
              Persona.saveFile(PATH, personas);
              return true;
             }             
         }else{
-            int id = Util.nextID(personas);
              Vendedor v1 = new Vendedor(clave, nombres,apellidos,organizacion,correo,clave);
              personas.add(v1);
              Persona.saveFile(PATH, personas);
