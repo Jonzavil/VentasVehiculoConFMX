@@ -30,9 +30,14 @@ public class Vendedor extends Persona implements Serializable{
         super(id,nombres,apellidos,organizacion,correoElectronico,clave);
     }     
     public static boolean nextVendedorFx( String nombres, String apellidos, String organizacion, String correo, String clave){
+<<<<<<< HEAD
         ArrayList<Persona> personas = Persona.readFile(PATH);
         Persona temp = null;
         temp = Persona.searchByCorreo(personas, correo);
+=======
+        ArrayList<Persona> personas = Persona.readFile(PATH);     
+        Persona temp =Persona.searchByCorreo(personas, correo);
+>>>>>>> 5b8e7e901120b0aff13f64f47905f864c4739540
         if (temp !=null){
             if( temp instanceof Vendedor){
                 System.out.println("Hacer excepcion para correo repetido");
