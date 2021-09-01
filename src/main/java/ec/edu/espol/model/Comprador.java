@@ -15,12 +15,12 @@ import java.util.Scanner;
  * @author ZavalaAvila
  */
 public class Comprador extends Persona {
-    
+    private static final long serialVersionUID = 8799656478674716635L;
     public Comprador(String id, String nombre, String apellidos, String organizacion, String correoElectronico, String clave) {
         super(id,nombre,apellidos,organizacion,correoElectronico,clave);
     }
    
-     public static Comprador registroComprador(Scanner sc, String nomfile){
+     public static Comprador nextCompradorFx(Scanner sc, String nomfile){
          ArrayList<Persona> personas = Persona.readFile(nomfile);
          System.out.println("Ingrese sus nombres: ");
          String nombres = sc.next();
