@@ -18,6 +18,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.text.Text;
 
 /**
  * FXML Controller class
@@ -41,11 +42,11 @@ public class RegistroUsuarioController implements Initializable {
     @FXML
     private Button btnregresar;
     @FXML
-    private RadioButton radiobtnvendedor;
+    private Text radiobtnvendedor;
     @FXML
-    private RadioButton radiobtncomprador;
+    private Text radiobtncomprador;
     @FXML
-    private RadioButton radiobtnambos;
+    private Text radiobtnambos;
 
     /**
      * Initializes the controller class.
