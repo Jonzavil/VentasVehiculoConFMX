@@ -56,22 +56,7 @@ public class RegistroUsuarioController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
        // TODO
-//        if(radiobtnvendedor.isSelected()){
-//            radiobtncomprador.setSelected(false);
-//            radiobtnambos.setSelected(false);
-//        }
-//        else if(radiobtncomprador.isSelected()==true){
-//            radiobtnvendedor.setSelected(false);
-//            radiobtnambos.setSelected(false);
-//        }
-//        else if(radiobtnambos.isSelected()==true){
-//            
-//            radiobtncomprador.setSelected(false);
-//            radiobtnvendedor.setSelected(false);
-//        }
-//        RadioButton c = new RadioButton();
-//        
-//        
+      
 
         
  
@@ -117,6 +102,23 @@ public class RegistroUsuarioController implements Initializable {
     private void btn1(ActionEvent event) {
         radiobtncomprador.setSelected(false);
         radiobtnambos.setSelected(false);
+        btnregistrar.setOnMouseClicked((MouseEvent v)->{
+            try {
+            FXMLLoader fxmloader = App.loadFXMLLoader("Pantallavendedor");
+            App.setRoot(fxmloader); 
+            PantallavendedorController hc= fxmloader.getController(); //recupero el controlador
+            String nom=txtnombres.getText();
+            String ape=txtapellidos.getText();
+            String orgn=txtorganizacion.getText();
+            String cor=txtcorreo.getText();
+            String contr=txtclave.getText();
+            } catch (IOException ex) {
+                Alert a = new Alert(AlertType.ERROR,"No se pudo abrir el archivo");
+                a.show();
+            }
+            
+        });
+        
         
         
         
@@ -124,15 +126,46 @@ public class RegistroUsuarioController implements Initializable {
 
    @FXML
     private void btn2(ActionEvent event) {
-       radiobtnvendedor.setSelected(false);
-       radiobtnambos.setSelected(false);
-        
+        radiobtnvendedor.setSelected(false);
+        radiobtnambos.setSelected(false);
+        btnregistrar.setOnMouseClicked((MouseEvent v)->{
+            try {
+            FXMLLoader fxmloader = App.loadFXMLLoader("Pantallavendedor");
+            App.setRoot(fxmloader); 
+            PantallavendedorController hc= fxmloader.getController(); //recupero el controlador
+            String nom=txtnombres.getText();
+            String ape=txtapellidos.getText();
+            String orgn=txtorganizacion.getText();
+            String cor=txtcorreo.getText();
+            String contr=txtclave.getText();
+            } catch (IOException ex) {
+                Alert a = new Alert(AlertType.ERROR,"No se pudo abrir el archivo");
+                a.show();
+            }
+        });
+         
     }
 
     @FXML
     private void btn3(ActionEvent event) {
-       radiobtncomprador.setSelected(false);
-       radiobtnvendedor.setSelected(false);
+        radiobtncomprador.setSelected(false);
+        radiobtnvendedor.setSelected(false);
+        btnregistrar.setOnMouseClicked((MouseEvent v)->{
+            try {
+            FXMLLoader fxmloader = App.loadFXMLLoader("Pantallavendedor");
+            App.setRoot(fxmloader); 
+            PantallavendedorController hc= fxmloader.getController(); //recupero el controlador
+            String nom=txtnombres.getText();
+            String ape=txtapellidos.getText();
+            String orgn=txtorganizacion.getText();
+            String cor=txtcorreo.getText();
+            String contr=txtclave.getText();
+            } catch (IOException ex) {
+                Alert a = new Alert(AlertType.ERROR,"No se pudo abrir el archivo");
+                a.show();
+            }
+        });
+        
         
    }
     
