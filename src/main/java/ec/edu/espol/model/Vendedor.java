@@ -31,6 +31,7 @@ public class Vendedor extends Persona implements Serializable{
     }     
     public static boolean nextVendedorFx( String nombres, String apellidos, String organizacion, String correo, String clave){
         ArrayList<Persona> personas = Persona.readFile(PATH);
+        
         Persona temp =Persona.searchByCorreo(personas, correo);
         if (temp !=null){
             if( temp instanceof Vendedor){
