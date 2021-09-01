@@ -172,8 +172,8 @@ public class Persona implements Serializable{
         else{
             for(Persona p: personas)
             {
-            if(p.correoElectronico.equals(correo))
-                return p;
+                if(p.correoElectronico.equals(correo))
+                    return p;
             }
         }
         return null;   
