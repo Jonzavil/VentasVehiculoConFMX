@@ -5,8 +5,6 @@
  */
 package ec.edu.espol.model;
 
-import ec.edu.espol.util.Util;
-import java.io.File;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -32,7 +30,8 @@ public class Comprador extends Persona {
          String correo = sc.next();
          System.out.println("Ingrese su clave: ");
          String clave = sc.next();
-         if (correo.equals(Persona.searchByCorreo(personas, correo))){
+         Persona temp=Persona.searchByCorreo(personas, correo);
+         if (correo.equals(temp.correoElectronico)){
              return null;
          }
          else{
