@@ -5,8 +5,6 @@
  */
 package ec.edu.espol.model;
 
-import ec.edu.espol.util.Util;
-import java.io.File;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -15,14 +13,13 @@ import java.util.Scanner;
  * @author ZavalaAvila
  */
 public class Comprador extends Persona {
-    
-    public Comprador(int id, String nombre, String apellidos, String organizacion, String correoElectronico, String clave) {
+    private static final long serialVersionUID = 8799656478674716635L;
+    public Comprador(String id, String nombre, String apellidos, String organizacion, String correoElectronico, String clave) {
         super(id,nombre,apellidos,organizacion,correoElectronico,clave);
     }
    
-     public static Comprador registroComprador(Scanner sc, String nomfile){
+     public static Comprador nextCompradorFx(Scanner sc, String nomfile){
          ArrayList<Persona> personas = Persona.readFile(nomfile);
-         int id = Util.nextID(personas);
          System.out.println("Ingrese sus nombres: ");
          String nombres = sc.next();
          System.out.println("Ingrese sus apellidos: ");
@@ -33,11 +30,12 @@ public class Comprador extends Persona {
          String correo = sc.next();
          System.out.println("Ingrese su clave: ");
          String clave = sc.next();
-         if (correo.equals(Persona.searchByCorreo(personas, correo))){
+         Persona temp=Persona.searchByCorreo(personas, correo);
+         if (correo.equals(temp.correoElectronico)){
              return null;
          }
          else{
-             Comprador c1 = new Comprador(id, nombres,apellidos,organizacion,correo,clave);
+             Comprador c1 = new Comprador(clave, nombres,apellidos,organizacion,correo,clave);
              personas.add(c1);
              Persona.saveFile(nomfile, personas);
              //c1.saveFile(nomfile);

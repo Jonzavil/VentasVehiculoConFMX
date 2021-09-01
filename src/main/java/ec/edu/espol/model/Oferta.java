@@ -6,20 +6,25 @@
 package ec.edu.espol.model;
 
 import ec.edu.espol.util.JavaMailUtil;
-import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.PrintWriter;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Scanner;
 /**
  *
  * @author ZavalaAvila & alphaware
  */
-public class Oferta {
+public class Oferta implements Serializable {
     private String placa; 
     private String correo;
     private double precioOfertar;
-
+    private static final long serialVersionUID = 8799656478674716639L;
+    protected static final String PATH = "ofertas.dat";
     public Oferta(double precioOfertar, String correo,String placa) {
         this.precioOfertar = precioOfertar;
         this.correo=correo;
@@ -49,45 +54,46 @@ public class Oferta {
     public void setPrecioOfertar(double precioOfertar) {
         this.precioOfertar = precioOfertar;
     }
-    public void saveFile(String nomfile){
-         try(PrintWriter pw = new PrintWriter(new FileOutputStream(new File(nomfile),true)))
-        {
-            pw.println(this.correo+"|"+this.precioOfertar+"|"+this.placa);
-        }
-        catch(Exception e){
-            System.out.println(e.getMessage());
+    public static void saveFile(String name, ArrayList<Oferta> ofertas){
+        try{
+            FileOutputStream fous =new FileOutputStream(name);
+            ObjectOutputStream out = new ObjectOutputStream(fous);
+            out.writeObject(ofertas);
+            out.flush();    
+        }catch(FileNotFoundException ex){
+            System.out.println(ex.getMessage());
+        } catch (IOException ex) {
+            System.out.println(ex.getMessage());
         }
     }
-    public static ArrayList<Oferta> readFile(String nomFile){
-        ArrayList<Oferta> ofertas = new ArrayList<>();
-        try(Scanner sc = new Scanner(new File(nomFile))){
-            while(sc.hasNextLine())
-            {
-                String linea = sc.nextLine();
-                String[] tokens = linea.split("\\|");
-                Oferta o;
-                o = new Oferta(Double.parseDouble(tokens[1]),tokens[0],tokens[2]);
-                ofertas.add(o);
-            }
-        }
-        catch(Exception e){
-            System.out.println(e.getMessage());
+    public static ArrayList<Oferta> readFile(String name){
+        ArrayList<Oferta> ofertas=new ArrayList<>();
+        try{
+            FileInputStream fis =new FileInputStream(name);
+            ObjectInputStream oin = new ObjectInputStream(fis);
+            ofertas =(ArrayList<Oferta>)oin.readObject();
+            return ofertas;           
+        }catch(FileNotFoundException ex){
+            System.out.println(ex.getMessage());
+        } catch (IOException ex) {
+            System.out.println(ex.getMessage());
+        } catch (ClassNotFoundException ex) {
+            System.out.println(ex.getMessage());
         }
         return ofertas;
-    }
-    public static ArrayList<Oferta> ofertarPorVehiculo(String nomfile,String nomfileVehiculo,String nomfileComprador){
-        Scanner sc=new Scanner(System.in);
-        System.out.println("Ingrese Correo Electronico: ");
-        String correo=sc.next();
-        System.out.println("Ingrese Contraseña: ");
-        String clave=sc.next();
+    } 
+    /*
+public static ArrayList<Oferta> ofertarPorVehiculoFx(String correo,String clave,String nomfileComprador){
+        if(Persona.Login(correo, clave)){
+            
+        }
         ArrayList<Oferta> cP=new ArrayList<>();
         Oferta ofer;
         ArrayList<Vehiculo>vn;
         int cont=0;
         Vehiculo aV[];
         if(Comprador.compararCorreoYContraseña(nomfileComprador, correo, clave)){
-            vn=Vehiculo.busquedaPorVehiculo(nomfileVehiculo);
+            vn=Vehiculo.busquedaPorVehiculo("codificar para que reciba un tipo de vehiculo");
             aV=new Vehiculo[vn.size()];
             for(Vehiculo v:vn){
                 aV[cont]=v;
@@ -109,8 +115,9 @@ public class Oferta {
                         System.out.println("Precio a ofertar: ");
                         double pO=sc.nextDouble();
                         ofer=new Oferta(pO,correo,aV[cont].getPlaca());
+                        //editar
                         cP.add(ofer);
-                        ofer.saveFile(nomfile);
+                        Oferta.saveFile(PATH,cP);
                         System.out.println("Oferta Realizada");
                     }
                     if(opcion==3){
@@ -146,6 +153,7 @@ public class Oferta {
         }
         return cP;
     }
+*/
     public static void aceptarOferta(String nomfile,String nomfileVendedor, String nomfileVehiculo ){
         ArrayList<Oferta> of=Oferta.readFile(nomfile);
         Scanner sc=new Scanner(System.in);
