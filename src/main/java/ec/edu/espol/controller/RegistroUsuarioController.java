@@ -8,7 +8,6 @@ package ec.edu.espol.controller;
 import ec.edu.espol.compraventavehiculog6.App;
 import ec.edu.espol.model.ErrorException;
 import ec.edu.espol.model.Vendedor;
-import static ec.edu.espol.model.Vendedor.nextVendedorFx;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -22,7 +21,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.control.RadioMenuItem;
 
 /**
  * FXML Controller class

@@ -1,5 +1,6 @@
 package ec.edu.espol.compraventavehiculog6;
 
+import ec.edu.espol.model.Vendedor;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;

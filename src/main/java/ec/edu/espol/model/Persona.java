@@ -6,14 +6,12 @@
 package ec.edu.espol.model;
 
 import ec.edu.espol.util.Util;
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.io.PrintWriter;
 import java.io.Serializable;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
@@ -29,6 +27,7 @@ public class Persona implements Serializable{
     protected String organizacion;
     protected String correoElectronico;
     protected String clave;
+    private static final long serialVersionUID = 8799656478674716638L;
     protected static final String PATH = "personas.dat";
     
     public Persona(int id, String nombre, String apellidos, String organizacion, String correoElectronico, String clave){
@@ -121,10 +120,11 @@ public class Persona implements Serializable{
         }
     }
     public static ArrayList<Persona> readFile(String name){
+        ArrayList<Persona> personas=new ArrayList<>();
         try{
             FileInputStream fis =new FileInputStream(name);
             ObjectInputStream oin = new ObjectInputStream(fis);
-            ArrayList<Persona> personas =(ArrayList<Persona>)oin.readObject();
+            personas =(ArrayList<Persona>)oin.readObject();
             return personas;           
         }catch(FileNotFoundException ex){
             System.out.println(ex.getMessage());
@@ -133,7 +133,7 @@ public class Persona implements Serializable{
         } catch (ClassNotFoundException ex) {
             System.out.println(ex.getMessage());
         }
-        return null;
+        return personas;
     } 
     public static boolean compararCorreoYContraseña(String nomfile,String correo,String contraseña){
         ArrayList<Persona> personas = Persona.readFile(nomfile);
@@ -166,7 +166,8 @@ public class Persona implements Serializable{
     }
     //valida cuando se registra un vendedor que el correo sea unico dentro de los que ya estan almacenadosen la base de datos
     public static Persona searchByCorreo(ArrayList<Persona> personas, String correo)
-    {
+    {   
+        
         for(Persona p: personas)
         {
             if(p.correoElectronico.equals(correo))
