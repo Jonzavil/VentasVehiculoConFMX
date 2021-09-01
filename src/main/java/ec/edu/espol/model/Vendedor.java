@@ -31,7 +31,15 @@ public class Vendedor extends Persona implements Serializable{
     } 
     
     
-      
+    public static boolean nextVendedorFx( String nombre, String apellidos, String organizacion, String correo, String clave){
+        ArrayList<Persona> personas = Persona.readFile("personas.dat");
+        int id = Util.nextID(personas);
+        if (correo.equals(Persona.searchByCorreo(personas, correo))){
+            
+             System.out.println("Hacer excepcion para correo repetido");
+            
+         }
+    } 
     public static Vendedor registroVendedor(Scanner sc, String nomfile){
          ArrayList<Persona> personas = Persona.readFile(nomfile);
          int id = Util.nextID(personas);
