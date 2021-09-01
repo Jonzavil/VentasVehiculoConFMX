@@ -26,14 +26,35 @@ import java.util.Scanner;
 public class Vendedor extends Persona implements Serializable{
     private static final long serialVersionUID = 8799656478674716638L;
     
-    public Vendedor(int id, String nombre, String apellidos, String organizacion, String correoElectronico, String clave) {       
-        super(id,nombre,apellidos,organizacion,correoElectronico,clave);
+    public Vendedor(int id, String nombres, String apellidos, String organizacion, String correoElectronico, String clave) {       
+        super(id,nombres,apellidos,organizacion,correoElectronico,clave);
     } 
     
     
-      
+    public static boolean nextVendedorFx( String nombres, String apellidos, String organizacion, String correo, String clave){
+        ArrayList<Persona> personas = Persona.readFile(PATH);
+        Persona temp =Persona.searchByCorreo(personas, correo);
+        if (temp !=null){
+            if( temp instanceof Vendedor){
+                System.out.println("Hacer excepcion para correo repetido");
+                return false;
+            }else{
+             int id = Util.nextID(personas);
+             Vendedor v1 = new Vendedor(id, nombres,apellidos,organizacion,correo,clave);
+             personas.add(v1);
+             Persona.saveFile(PATH, personas);
+             return true;
+            }             
+        }else{
+            int id = Util.nextID(personas);
+             Vendedor v1 = new Vendedor(id, nombres,apellidos,organizacion,correo,clave);
+             personas.add(v1);
+             Persona.saveFile(PATH, personas);
+             return true;
+            }
+    } 
     public static Vendedor registroVendedor(Scanner sc, String nomfile){
-         ArrayList<Persona> personas = Persona.readFile(nomfile);
+         ArrayList<Persona> personas = Persona.readFile(PATH);
          int id = Util.nextID(personas);
          System.out.println("Ingrese sus nombres: ");
          String nombres = sc.next();
