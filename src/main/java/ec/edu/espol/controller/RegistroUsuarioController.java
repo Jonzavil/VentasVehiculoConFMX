@@ -9,7 +9,6 @@ import ec.edu.espol.compraventavehiculog6.App;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -19,7 +18,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.control.RadioMenuItem;
 
 /**
  * FXML Controller class
@@ -48,53 +46,17 @@ public class RegistroUsuarioController implements Initializable {
     private RadioButton radiobtncomprador;
     @FXML
     private RadioButton radiobtnambos;
-    
 
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-       // TODO
-//        if(radiobtnvendedor.isSelected()){
-//            radiobtncomprador.setSelected(false);
-//            radiobtnambos.setSelected(false);
-//        }
-//        else if(radiobtncomprador.isSelected()==true){
-//            radiobtnvendedor.setSelected(false);
-//            radiobtnambos.setSelected(false);
-//        }
-//        else if(radiobtnambos.isSelected()==true){
-//            
-//            radiobtncomprador.setSelected(false);
-//            radiobtnvendedor.setSelected(false);
-//        }
-//        RadioButton c = new RadioButton();
-//        
-//        
-
-        
- 
+        // TODO
     }    
 
     @FXML
     private void RegistrarUsuario(MouseEvent event) {
-//        radiobtncomprador.setOnMouseClicked((MouseEvent c)->{
-//            radiobtncomprador.setSelected(false);
-//            radiobtnambos.setSelected(false);
-//            
-//        });
-//        radiobtncomprador.setOnMouseClicked((MouseEvent c)->{
-//            radiobtnvendedor.setSelected(false);
-//            radiobtnambos.setSelected(false);
-//            
-//        });
-//        radiobtnambos.setOnMouseClicked((MouseEvent c)->{
-//            radiobtncomprador.setSelected(false);
-//            radiobtnvendedor.setSelected(false);             
-//        });
-//        
-        
     }
 
     @FXML
@@ -108,32 +70,7 @@ public class RegistroUsuarioController implements Initializable {
                 Alert a = new Alert(AlertType.ERROR,"No se pudo abrir el archivo");
                 a.show();
             }
-
-
- 
-    }
-
-    @FXML
-    private void btn1(ActionEvent event) {
-        radiobtncomprador.setSelected(false);
-        radiobtnambos.setSelected(false);
-        
-        
         
     }
-
-   @FXML
-    private void btn2(ActionEvent event) {
-       radiobtnvendedor.setSelected(false);
-       radiobtnambos.setSelected(false);
-        
-    }
-
-    @FXML
-    private void btn3(ActionEvent event) {
-       radiobtncomprador.setSelected(false);
-       radiobtnvendedor.setSelected(false);
-        
-   }
     
 }
