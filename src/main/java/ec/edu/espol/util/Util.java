@@ -41,11 +41,11 @@ public class Util {
         }
         return id+1;
     }
-      public static int nextID(ArrayList<Persona> personas) {
-        if(personas.isEmpty()) return 100;
+      public static String nextID(ArrayList<Persona> personas) {
+        if(personas.isEmpty()) return null;
         personas.size();
         var temp=personas.get(personas.size()-1);
-        return temp.getId()+1;
+        return temp.getClave();
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     public static byte[] getSHA(String input) throws NoSuchAlgorithmException
