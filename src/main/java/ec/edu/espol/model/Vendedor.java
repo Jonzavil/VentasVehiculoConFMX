@@ -5,8 +5,16 @@
  */
 package ec.edu.espol.model;
 
+import ec.edu.espol.model.Persona;
 import ec.edu.espol.util.Util;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -15,40 +23,18 @@ import java.util.Scanner;
  *
  * @author ZavalaAvila
  */
-public class Vendedor extends Personas {
+public class Vendedor extends Persona implements Serializable{
+    private static final long serialVersionUID = 8799656478674716638L;
     
-    public Vendedor(int id, String nombre, String apellidos, String organizacion, String correoElectronico, String clave) {
+    public Vendedor(int id, String nombre, String apellidos, String organizacion, String correoElectronico, String clave) {       
         super(id,nombre,apellidos,organizacion,correoElectronico,clave);
-    }
-  
-    public static ArrayList<Vendedor> readFile(String nomFile){
-        ArrayList<Vendedor> vendedores = new ArrayList<>();
-        try(Scanner sc = new Scanner(new File(nomFile))){
-            while(sc.hasNextLine())
-            {
-                String linea = sc.nextLine();
-                String[] tokens = linea.split("\\|");
-                Vendedor v = new Vendedor(Integer.parseInt(tokens[0]),tokens[1],tokens[2],tokens[3],tokens[4],tokens[5]);
-                vendedores.add(v);
-            }
-        }
-        catch(Exception e){
-            System.out.println(e.getMessage());
-        }
-        return vendedores;
-    }
+    } 
     
-    public static String searchByCorreo(ArrayList<Vendedor> vendedores,String correo){
-        String vn = null;
-        for(Vendedor v : vendedores){
-            if(v.correoElectronico.equals(correo))
-              vn= v.correoElectronico;
-        }
-        return vn;
-    }    
-     public static Vendedor registroVendedor(Scanner sc, String nomfile){
-         ArrayList<Vendedor> vendedores = Vendedor.readFile(nomfile);
-         int id = Util.nextID(nomfile);
+    
+      
+    public static Vendedor registroVendedor(Scanner sc, String nomfile){
+         ArrayList<Persona> personas = Persona.readFile(nomfile);
+         int id = Util.nextID(personas);
          System.out.println("Ingrese sus nombres: ");
          String nombres = sc.next();
          System.out.println("Ingrese sus apellidos: ");
@@ -59,35 +45,22 @@ public class Vendedor extends Personas {
          String correo = sc.next();
          System.out.println("Ingrese su clave: ");
          String clave = sc.next();
-         if (correo.equals(Vendedor.searchByCorreo(vendedores, correo))){
+         if (correo.equals(Persona.searchByCorreo(personas, correo))){
              System.out.println("Registro Fallido correo ya existente");
              return null;
          }
          else{
-             Vendedor v1 = new Vendedor(id, nombres,apellidos,organizacion,correo,clave);   
-             v1.saveFile(nomfile);
+             Vendedor v1 = new Vendedor(id, nombres,apellidos,organizacion,correo,clave);
+             personas.add(v1);
+             Persona.saveFile(nomfile, personas);
+             //v1.saveFile(nomfile);
              System.out.println("Registro Completado");
              return v1;
          }
      }
      
-    public static boolean compararCorreoYContraseña(String nomfile,String correo,String contraseña){
-        ArrayList<Vendedor> vendedores = Vendedor.readFile(nomfile);
-        String c=null;
-        try 
-        {
-            contraseña = Util.toHexString(Util.getSHA(contraseña));
-            contraseña = Util.toHexString(Util.getSHA(contraseña));
-        }
-        // For specifying wrong message digest algorithms 
-        catch (NoSuchAlgorithmException e) { 
-            System.out.println("Exception thrown for incorrect algorithm: " + e); 
-        }
-            for(Vendedor v: vendedores){
-                if(v.correoElectronico.equals(correo)){
-                    c=v.clave;
-                }
-            } 
-        return contraseña.equals(c);
-    }
+    
+    
+    
+    
 }

@@ -7,15 +7,22 @@ package ec.edu.espol.model;
 
 import ec.edu.espol.util.Util;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.io.PrintWriter;
+import java.io.Serializable;
 import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
 import java.util.Objects;
 /**
  *
  * @author yober
  */
-public class Personas {
+public class Persona implements Serializable{
     protected int id;
     protected String nombre;
     protected String apellidos;
@@ -23,7 +30,7 @@ public class Personas {
     protected String correoElectronico;
     protected String clave; 
     
-    public Personas(int id, String nombre, String apellidos, String organizacion, String correoElectronico, String clave){
+    public Persona(int id, String nombre, String apellidos, String organizacion, String correoElectronico, String clave){
         this.id = id;
         this.nombre = nombre;
         this.apellidos = apellidos;
@@ -89,7 +96,7 @@ public class Personas {
             return true;
         if (this.getClass()!=o.getClass())
             return false;
-        Personas other=(Personas)o;
+        Persona other=(Persona)o;
         return this.correoElectronico.equals(other.correoElectronico);
     }
 
@@ -99,14 +106,60 @@ public class Personas {
         hash = 89 * hash + Objects.hashCode(this.correoElectronico);
         return hash;
     }
-    public void saveFile(String nomfile){
-         try(PrintWriter pw = new PrintWriter(new FileOutputStream(new File(nomfile),true)))
+    public static void saveFile(String name, ArrayList<Persona> personas){
+        try{
+            FileOutputStream fous =new FileOutputStream(name);
+            ObjectOutputStream out = new ObjectOutputStream(fous);
+            out.writeObject(personas);
+            out.flush();
+            
+        }catch(FileNotFoundException ex){
+            System.out.println(ex.getMessage());
+        } catch (IOException ex) {
+            System.out.println(ex.getMessage());
+        }
+    }
+    public static ArrayList<Persona> readFile(String name){
+        try{
+            FileInputStream fis =new FileInputStream(name);
+            ObjectInputStream oin = new ObjectInputStream(fis);
+            ArrayList<Persona> personas =(ArrayList<Persona>)oin.readObject();
+            return personas;           
+        }catch(FileNotFoundException ex){
+            System.out.println(ex.getMessage());
+        } catch (IOException ex) {
+            System.out.println(ex.getMessage());
+        } catch (ClassNotFoundException ex) {
+            System.out.println(ex.getMessage());
+        }
+        return null;
+    }
+    public static String searchByCorreo(ArrayList<Persona> personas,String correo){
+        String vn = null;
+        for(Persona p : personas){
+            if(p.correoElectronico.equals(correo))
+              vn= p.correoElectronico;
+        }
+        return vn;
+    } 
+    public static boolean compararCorreoYContraseña(String nomfile,String correo,String contraseña){
+        ArrayList<Persona> personas = Persona.readFile(nomfile);
+        String c=null;
+        try 
         {
-            pw.println(this.id+"|"+this.nombre+"|"+this.apellidos+"|"+this.organizacion+"|"+this.correoElectronico+"|"+this.clave);
+            contraseña = Util.toHexString(Util.getSHA(contraseña));
+            contraseña = Util.toHexString(Util.getSHA(contraseña));
         }
-        catch(Exception e){
-            System.out.println(e.getMessage());
+        // For specifying wrong message digest algorithms 
+        catch (NoSuchAlgorithmException e) { 
+            System.out.println("Exception thrown for incorrect algorithm: " + e); 
         }
+            for(Persona p: personas){
+                if(p.correoElectronico.equals(correo)){
+                    c=p.clave;
+                }
+            } 
+        return contraseña.equals(c);
     }
     
 }

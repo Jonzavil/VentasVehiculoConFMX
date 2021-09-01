@@ -5,21 +5,21 @@
  */
 package ec.edu.espol.util;
 
+import ec.edu.espol.model.Persona;
 import java.io.File;
 import java.util.Scanner;
 import java.math.BigInteger; 
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest; 
 import java.security.NoSuchAlgorithmException; 
+import java.util.ArrayList;
 /**
  *
  * @author eduardo
  */
 public class Util {
 
-    public static int nextID(File nomfile) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+  
     // el constructor se lo ha declarado privado
     // ya que esta clase solo va a contener comportamientos estáticos
     // por lo tanto, no se van a permitir crear instancia de la clase Util
@@ -40,6 +40,13 @@ public class Util {
         {
         }
         return id+1;
+    }
+      public static int nextID(ArrayList<Persona> personas) {
+        if(personas.isEmpty()) return 100;
+        personas.size();
+        var temp=personas.get(personas.size()-1);
+        return temp.getId()+1;
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     public static byte[] getSHA(String input) throws NoSuchAlgorithmException
     { 

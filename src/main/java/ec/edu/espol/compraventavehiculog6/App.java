@@ -17,8 +17,15 @@ public class App extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
+        //despues de crear el Grafo de escena paso el ROOT NODE como parametro a la escena
+        //el scene continene al {ROOTNODE(ROOT),()DIMENSIONES}
         scene = new Scene(loadFXML("Login"), 640, 480);
+        //Paso la escena al stage
         stage.setScene(scene);
+        //Establecemos el titulo de la ventana
+        stage.setTitle("Marketplace de Vehiculos");
+        //mostrar la ventana principal
+        //mostramos el stage
         stage.show();
     }
 
@@ -45,7 +52,7 @@ public class App extends Application {
     
     
     public static void main(String[] args) {
-        launch();
+        Application.launch();
     }
 
 }
