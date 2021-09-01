@@ -167,12 +167,15 @@ public class Persona implements Serializable{
     //valida cuando se registra un vendedor que el correo sea unico dentro de los que ya estan almacenadosen la base de datos
     public static Persona searchByCorreo(ArrayList<Persona> personas, String correo)
     {
-        for(Persona p: personas)
+        if (personas.isEmpty()) return null;
+        else{
+            for(Persona p: personas)
         {
             if(p.correoElectronico.equals(correo))
                 return p;
         }
         return null;
+        }
     }
     
 }
