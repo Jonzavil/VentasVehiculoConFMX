@@ -16,13 +16,12 @@ import java.util.Scanner;
  */
 public class Comprador extends Persona {
     
-    public Comprador(int id, String nombre, String apellidos, String organizacion, String correoElectronico, String clave) {
+    public Comprador(String id, String nombre, String apellidos, String organizacion, String correoElectronico, String clave) {
         super(id,nombre,apellidos,organizacion,correoElectronico,clave);
     }
    
      public static Comprador registroComprador(Scanner sc, String nomfile){
          ArrayList<Persona> personas = Persona.readFile(nomfile);
-         int id = Util.nextID(personas);
          System.out.println("Ingrese sus nombres: ");
          String nombres = sc.next();
          System.out.println("Ingrese sus apellidos: ");
@@ -37,7 +36,7 @@ public class Comprador extends Persona {
              return null;
          }
          else{
-             Comprador c1 = new Comprador(id, nombres,apellidos,organizacion,correo,clave);
+             Comprador c1 = new Comprador(clave, nombres,apellidos,organizacion,correo,clave);
              personas.add(c1);
              Persona.saveFile(nomfile, personas);
              //c1.saveFile(nomfile);
