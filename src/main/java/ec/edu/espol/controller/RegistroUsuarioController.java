@@ -6,6 +6,9 @@
 package ec.edu.espol.controller;
 
 import ec.edu.espol.compraventavehiculog6.App;
+import ec.edu.espol.model.ErrorException;
+import ec.edu.espol.model.Vendedor;
+import static ec.edu.espol.model.Vendedor.nextVendedorFx;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -64,22 +67,7 @@ public class RegistroUsuarioController implements Initializable {
 
     @FXML
     private void RegistrarUsuario(MouseEvent event) {
-//        radiobtncomprador.setOnMouseClicked((MouseEvent c)->{
-//            radiobtncomprador.setSelected(false);
-//            radiobtnambos.setSelected(false);
-//            
-//        });
-//        radiobtncomprador.setOnMouseClicked((MouseEvent c)->{
-//            radiobtnvendedor.setSelected(false);
-//            radiobtnambos.setSelected(false);
-//            
-//        });
-//        radiobtnambos.setOnMouseClicked((MouseEvent c)->{
-//            radiobtncomprador.setSelected(false);
-//            radiobtnvendedor.setSelected(false);             
-//        });
-//        
-        
+     
     }
 
     @FXML
@@ -104,17 +92,30 @@ public class RegistroUsuarioController implements Initializable {
         radiobtnambos.setSelected(false);
         btnregistrar.setOnMouseClicked((MouseEvent v)->{
             try {
-            FXMLLoader fxmloader = App.loadFXMLLoader("Pantallavendedor");
-            App.setRoot(fxmloader); 
-            PantallavendedorController hc= fxmloader.getController(); //recupero el controlador
-            String nom=txtnombres.getText();
-            String ape=txtapellidos.getText();
-            String orgn=txtorganizacion.getText();
-            String cor=txtcorreo.getText();
-            String contr=txtclave.getText();
+                
+                String nom=txtnombres.getText();
+                String ape=txtapellidos.getText();
+                String orgn=txtorganizacion.getText();
+                String cor=txtcorreo.getText();
+                String contr=txtclave.getText();
+                if(Vendedor.nextVendedorFx(nom,ape,orgn,cor,contr)){ 
+                    Alert c = new Alert(AlertType.CONFIRMATION,"Creacion Exitosa");
+                    c.show();
+                    FXMLLoader fxmloader = App.loadFXMLLoader("Login");
+                    App.setRoot(fxmloader); 
+                    LoginController hc= fxmloader.getController();
+                }
+                else{
+                    throw new ErrorException("error");
+                }
+                 
+            
             } catch (IOException ex) {
                 Alert a = new Alert(AlertType.ERROR,"No se pudo abrir el archivo");
                 a.show();
+            } catch (ErrorException ex) {
+                Alert c = new Alert(AlertType.ERROR,"Usuario ya registrado");
+                c.show();
             }
             
         });
