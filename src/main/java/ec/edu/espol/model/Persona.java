@@ -21,7 +21,7 @@ import java.util.Objects;
  * @author yober
  */
 public class Persona implements Serializable{
-    protected int id;
+    protected String id;
     protected String nombre;
     protected String apellidos;
     protected String organizacion;
@@ -30,7 +30,7 @@ public class Persona implements Serializable{
     private static final long serialVersionUID = 8799656478674716638L;
     protected static final String PATH = "personas.dat";
     
-    public Persona(int id, String nombre, String apellidos, String organizacion, String correoElectronico, String clave){
+    public Persona(String id, String nombre, String apellidos, String organizacion, String correoElectronico, String clave){
         this.id = id;
         this.nombre = nombre;
         this.apellidos = apellidos;
@@ -45,10 +45,10 @@ public class Persona implements Serializable{
             System.out.println("Exception thrown for incorrect algorithm: " + e); 
         }
     }
-     public int getId() {
+     public String getId() {
         return id;
     }
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
     public String getNombre() {
@@ -155,6 +155,8 @@ public class Persona implements Serializable{
         return contraseña.equals(c);
     }
     //busca a un vendedor por su identificador unico
+    //no necesitamos este metodo
+    /*
     public static Persona searchByID(ArrayList<Persona> personas, int id)
     {
         for(Persona p : personas)
@@ -164,6 +166,7 @@ public class Persona implements Serializable{
         }
         return null;
     }
+*/
     //valida cuando se registra un vendedor que el correo sea unico dentro de los que ya estan almacenadosen la base de datos
     public static Persona searchByCorreo(ArrayList<Persona> personas, String correo)
     {   
@@ -177,6 +180,10 @@ public class Persona implements Serializable{
             }
         }
         return null;   
+    }
+    public static Persona Login(String correo, String clave){
+        Persona.readFile(PATH);
+        
     }
     
 }
