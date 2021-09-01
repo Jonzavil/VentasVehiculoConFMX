@@ -6,25 +6,25 @@
 package ec.edu.espol.model;
 
 import ec.edu.espol.util.JavaMailUtil;
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.io.PrintWriter;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Scanner;
 /**
  *
  * @author ZavalaAvila & alphaware
  */
-public class Oferta {
+public class Oferta implements Serializable {
     private String placa; 
     private String correo;
     private double precioOfertar;
-
+    private static final long serialVersionUID = 8799656478674716639L;
+    protected static final String PATH = "ofertas.dat";
     public Oferta(double precioOfertar, String correo,String placa) {
         this.precioOfertar = precioOfertar;
         this.correo=correo;
