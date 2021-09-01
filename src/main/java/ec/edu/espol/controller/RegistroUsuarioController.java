@@ -20,6 +20,8 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
+import javafx.scene.input.InputMethodEvent;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 
 /**
@@ -89,25 +91,29 @@ public class RegistroUsuarioController implements Initializable {
         radiobtncomprador.setSelected(false);
         radiobtnambos.setSelected(false);
         btnregistrar.setOnMouseClicked((MouseEvent v)->{
-            try {
-                
+            try {  
                 String nom=txtnombres.getText();
                 String ape=txtapellidos.getText();
                 String orgn=txtorganizacion.getText();
                 String cor=txtcorreo.getText();
                 String contr=txtclave.getText();
-                if(Vendedor.nextVendedorFx(nom,ape,orgn,cor,contr)){ 
+                
+                if(!nom.matches("[a-zA-Z]+$") || !ape.matches("[a-zA-Z]+$") || !orgn.matches("[a-zA-Z]+$")|| !cor.matches("[A-Za-z]+@[a-z]+\\.[a-z]+") ){
+                    Alert p = new Alert(AlertType.ERROR,"Completar todos los campos");
+                    p.show();   
+                }
+                else{
+                    if(Vendedor.nextVendedorFx(nom,ape,orgn,cor,contr)){ 
                     Alert c = new Alert(AlertType.CONFIRMATION,"Creacion Exitosa");
                     c.show();
                     FXMLLoader fxmloader = App.loadFXMLLoader("Login");
                     App.setRoot(fxmloader); 
                     LoginController hc= fxmloader.getController();
-                }
-                else{
-                    throw new ErrorException("error");
-                }
-                 
-            
+                    }
+                    else{
+                        throw new ErrorException("error");
+                    }
+                }  
             } catch (IOException ex) {
                 Alert a = new Alert(AlertType.ERROR,"No se pudo abrir el archivo");
                 a.show();
@@ -167,5 +173,9 @@ public class RegistroUsuarioController implements Initializable {
         
         
    }
+
+
+
+
     
 }
