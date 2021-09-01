@@ -27,7 +27,7 @@ public class Persona implements Serializable{
     protected String organizacion;
     protected String correoElectronico;
     protected String clave;
-    private static final long serialVersionUID = 8799656478674716638L;
+    private static final long serialVersionUID = 8799656478674716636L;
     protected static final String PATH = "personas.dat";
     
     public Persona(String id, String nombre, String apellidos, String organizacion, String correoElectronico, String clave){
@@ -181,11 +181,22 @@ public class Persona implements Serializable{
         }
         return null;   
     }
-    public static Persona Login(String correo, String clave){
-        Persona.readFile(PATH);
-        
+    public static boolean Login(String correo, String clave){
+        ArrayList<Persona> personas=Persona.readFile(PATH);
+        String clave_converted="";
+        Persona temp =Persona.searchByCorreo(personas, correo);
+        if(temp !=null){
+        try {
+            clave_converted= Util.toHexString(Util.getSHA(clave));
+            }
+            // For specifying wrong message digest algorithms 
+            catch (NoSuchAlgorithmException e) { 
+            System.out.println("Exception thrown for incorrect algorithm: " + e); 
+            }
+        if (temp.clave.equals(clave_converted)) return true;
+        else return false;
+        }else return false;
     }
-    
 }
 
    
