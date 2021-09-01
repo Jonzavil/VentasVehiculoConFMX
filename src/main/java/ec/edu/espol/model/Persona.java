@@ -133,6 +133,14 @@ public class Persona implements Serializable{
             System.out.println(ex.getMessage());
         }
         return null;
+    }
+    public static String searchByCorreo(ArrayList<Persona> personas,String correo){
+        String vn = null;
+        for(Persona p : personas){
+            if(p.correoElectronico.equals(correo))
+              vn= p.correoElectronico;
+        }
+        return vn;
     } 
     public static boolean compararCorreoYContraseña(String nomfile,String correo,String contraseña){
         ArrayList<Persona> personas = Persona.readFile(nomfile);
@@ -152,26 +160,6 @@ public class Persona implements Serializable{
                 }
             } 
         return contraseña.equals(c);
-    }
-    //busca a un vendedor por su identificador unico
-    public static Persona searchByID(ArrayList<Persona> personas, int id)
-    {
-        for(Persona p : personas)
-        {
-            if(p.id == id)
-                return p;
-        }
-        return null;
-    }
-    //valida cuando se registra un vendedor que el correo sea unico dentro de los que ya estan almacenadosen la base de datos
-    public static Persona searchByCorreo(ArrayList<Persona> personas, String correo)
-    {
-        for(Persona p: personas)
-        {
-            if(p.correoElectronico.equals(correo))
-                return p;
-        }
-        return null;
     }
     
 }
