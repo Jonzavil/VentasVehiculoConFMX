@@ -6,10 +6,13 @@
 package ec.edu.espol.controller;
 
 import ec.edu.espol.compraventavehiculog6.App;
+import ec.edu.espol.model.Comprador;
 import ec.edu.espol.model.ErrorException;
 import ec.edu.espol.model.Persona;
+import ec.edu.espol.model.Vendedor;
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -27,7 +30,7 @@ import javafx.scene.input.MouseEvent;
  * @author ADMIN
  */
 public class IngresarUsuarioController implements Initializable {
-
+    ArrayList<Persona> personas;
     @FXML
     private TextField textcorreo;
     @FXML
@@ -43,18 +46,27 @@ public class IngresarUsuarioController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
+        personas=Persona.readFile("personas.dat");
     }    
 
     @FXML
     private void Menuusuario(MouseEvent event) {
         try {
             System.out.println(textcorreo.getText()+textcontrase.getText());
-            if(Persona.validarClave(textcorreo.getText(),textcontrase.getText())){
+            if((Persona.validarClave(textcorreo.getText(),textcontrase.getText()))&&(Persona.searchByCorreo(personas, textcorreo.getText()) instanceof Vendedor)){
                 FXMLLoader fxmloader = App.loadFXMLLoader("Pantallavendedor");
                 App.setRoot(fxmloader);
                 PantallavendedorController hc= fxmloader.getController();
+            }else if(Persona.validarClave(textcorreo.getText(),textcontrase.getText())&&(Persona.searchByCorreo(personas, textcorreo.getText()) instanceof Comprador)){
+                FXMLLoader fxmloader = App.loadFXMLLoader("PantallaComprador");
+                App.setRoot(fxmloader);
+                PantallaCompradorController hcc= fxmloader.getController();
+            }else if(Persona.validarClave(textcorreo.getText(),textcontrase.getText())&&(Persona.searchByCorreo(personas, textcorreo.getText()) instanceof Persona)){
+                FXMLLoader fxmloader = App.loadFXMLLoader("AmbosPantalla");
+                App.setRoot(fxmloader);
+                AmbosPantallaController hcc= fxmloader.getController();
             }else{
-                throw new ErrorException("COntraseña Erronea");
+                throw new ErrorException("Contraseña Erronea");
             }
         } catch (IOException ex) {
             Alert a = new Alert(AlertType.ERROR,"Fallo programa");
@@ -63,8 +75,7 @@ public class IngresarUsuarioController implements Initializable {
             Alert a = new Alert(AlertType.ERROR,"Correo o Contraseña Incorrecta");
             a.show();
         }
-        
-    }
+    }   
 
     @FXML
     private void sceneregresoinciosesion(MouseEvent event) {
