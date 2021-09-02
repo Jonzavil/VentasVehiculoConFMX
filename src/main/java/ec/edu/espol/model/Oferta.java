@@ -164,7 +164,7 @@ public static ArrayList<Oferta> ofertarPorVehiculoFx(String correo,String clave,
         ArrayList<Vehiculo>vn;
         int cont=0;
         Oferta aV[];
-        if(Vendedor.compararCorreoYContraseña(nomfileVendedor, correo, clave)){
+        if(Vendedor.validarClave(correo, clave)){
             System.out.println("Ingrese placa: ");
             String placa=sc.nextLine();
             vn=Vehiculo.readFile(nomfileVehiculo);

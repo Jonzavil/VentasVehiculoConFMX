@@ -37,33 +37,5 @@ public class Vendedor extends Persona implements Serializable{
              Persona.saveFile(PATH, personas);
              return true;
             }
-    }
-    /*
-    public static Vendedor registroVendedor(Scanner sc, String nomfile){
-         ArrayList<Persona> personas = Persona.readFile(PATH);
-         int id = Util.nextID(personas);
-         System.out.println("Ingrese sus nombres: ");
-         String nombres = sc.next();
-         System.out.println("Ingrese sus apellidos: ");
-         String apellidos = sc.next();
-         System.out.println("Ingrese la organización  la que pertenece: ");
-         String organizacion = sc.next();
-         System.out.println("Ingrese el correo electrónico");
-         String correo = sc.next();
-         System.out.println("Ingrese su clave: ");
-         String clave = sc.next();
-         if (correo.equals(Persona.searchByCorreo(personas, correo))){
-             System.out.println("Registro Fallido correo ya existente");
-             return null;
-         }
-         else{
-             Vendedor v1 = new Vendedor(id, nombres,apellidos,organizacion,correo,clave);
-             personas.add(v1);
-             Persona.saveFile(nomfile, personas);
-             //v1.saveFile(nomfile);
-             System.out.println("Registro Completado");
-             return v1;
-         }
-     }
-    */       
+    }   
 }

@@ -6,6 +6,8 @@
 package ec.edu.espol.controller;
 
 import ec.edu.espol.compraventavehiculog6.App;
+import ec.edu.espol.model.ErrorException;
+import ec.edu.espol.model.Persona;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -15,6 +17,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 
@@ -28,7 +31,7 @@ public class IngresarUsuarioController implements Initializable {
     @FXML
     private TextField textcorreo;
     @FXML
-    private TextField textcontrase;
+    private PasswordField textcontrase;
     @FXML
     private Button btningresar;
     @FXML
@@ -44,6 +47,23 @@ public class IngresarUsuarioController implements Initializable {
 
     @FXML
     private void Menuusuario(MouseEvent event) {
+        try {
+            System.out.println(textcorreo.getText()+textcontrase.getText());
+            if(Persona.validarClave(textcorreo.getText(),textcontrase.getText())){
+                FXMLLoader fxmloader = App.loadFXMLLoader("Pantallavendedor");
+                App.setRoot(fxmloader);
+                PantallavendedorController hc= fxmloader.getController();
+            }else{
+                throw new ErrorException("COntraseña Erronea");
+            }
+        } catch (IOException ex) {
+            Alert a = new Alert(AlertType.ERROR,"Fallo programa");
+            a.show();
+        } catch (ErrorException ex) {
+            Alert a = new Alert(AlertType.ERROR,"Correo o Contraseña Incorrecta");
+            a.show();
+        }
+        
     }
 
     @FXML

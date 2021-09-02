@@ -135,12 +135,11 @@ public class Persona implements Serializable{
         }
         return personas;
     } 
-    public static boolean compararCorreoYContraseña(String nomfile,String correo,String contraseña){
-        ArrayList<Persona> personas = Persona.readFile(nomfile);
+    public static boolean validarClave(String correo,String contraseña){
+        ArrayList<Persona> personas = Persona.readFile(PATH);
         String c=null;
         try 
         {
-            contraseña = Util.toHexString(Util.getSHA(contraseña));
             contraseña = Util.toHexString(Util.getSHA(contraseña));
         }
         // For specifying wrong message digest algorithms 
@@ -154,19 +153,6 @@ public class Persona implements Serializable{
             } 
         return contraseña.equals(c);
     }
-    //busca a un vendedor por su identificador unico
-    //no necesitamos este metodo
-    /*
-    public static Persona searchByID(ArrayList<Persona> personas, int id)
-    {
-        for(Persona p : personas)
-        {
-            if(p.id == id)
-                return p;
-        }
-        return null;
-    }
-*/
     //valida cuando se registra un vendedor que el correo sea unico dentro de los que ya estan almacenadosen la base de datos
     public static Persona searchByCorreo(ArrayList<Persona> personas, String correo)
     {   
@@ -181,22 +167,22 @@ public class Persona implements Serializable{
         }
         return null;   
     }
-    public static boolean Login(String correo, String clave){
-        ArrayList<Persona> personas=Persona.readFile(PATH);
-        String clave_converted="";
-        Persona temp =Persona.searchByCorreo(personas, correo);
-        if(temp !=null){
-        try {
-            clave_converted= Util.toHexString(Util.getSHA(clave));
-            }
-            // For specifying wrong message digest algorithms 
-            catch (NoSuchAlgorithmException e) { 
-            System.out.println("Exception thrown for incorrect algorithm: " + e); 
-            }
-        if (temp.clave.equals(clave_converted)) return true;
-        else return false;
-        }else return false;
-    }
+//    public static boolean Login(String correo, String clave){
+//        ArrayList<Persona> personas=Persona.readFile(PATH);
+//        String clave_converted="";
+//        Persona temp =Persona.searchByCorreo(personas, correo);
+//        if(temp !=null){
+//            try {
+//                clave_converted= Util.toHexString(Util.getSHA(clave));
+//                }
+//                // For specifying wrong message digest algorithms 
+//                catch (NoSuchAlgorithmException e) { 
+//                System.out.println("Exception thrown for incorrect algorithm: " + e); 
+//                }
+//            if (temp.clave.equals(clave_converted)) return true;
+//            else return false;
+//        }else return false;
+//    }
 }
 
    
