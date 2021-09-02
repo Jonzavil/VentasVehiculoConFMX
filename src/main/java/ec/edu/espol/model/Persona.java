@@ -21,7 +21,6 @@ import java.util.Objects;
  * @author yober
  */
 public class Persona implements Serializable{
-    protected String id;
     protected String nombre;
     protected String apellidos;
     protected String organizacion;
@@ -30,8 +29,7 @@ public class Persona implements Serializable{
     private static final long serialVersionUID = 8799656478674716636L;
     protected static final String PATH = "personas.dat";
     
-    public Persona(String id, String nombre, String apellidos, String organizacion, String correoElectronico, String clave){
-        this.id = id;
+    public Persona(String nombre, String apellidos, String organizacion, String correoElectronico, String clave){
         this.nombre = nombre;
         this.apellidos = apellidos;
         this.organizacion = organizacion;
@@ -44,12 +42,6 @@ public class Persona implements Serializable{
         catch (NoSuchAlgorithmException e) { 
             System.out.println("Exception thrown for incorrect algorithm: " + e); 
         }
-    }
-     public String getId() {
-        return id;
-    }
-    public void setId(String id) {
-        this.id = id;
     }
     public String getNombre() {
         return nombre;
@@ -88,6 +80,26 @@ public class Persona implements Serializable{
             System.out.println("Exception thrown for incorrect algorithm: " + e); 
         }
     }
+    public static boolean nextAmbosFx(String nombres, String apellidos, String organizacion, String correo, String clave){
+        ArrayList<Persona> personas = Persona.readFile(PATH);
+        Persona temp = Persona.searchByCorreo(personas, correo);
+        if (temp !=null){
+            if( temp instanceof Persona){
+                System.out.println("Hacer excepcion para correo repetido");
+                return false;
+            }else{
+             Persona v1 = new Persona(nombres,apellidos,organizacion,correo,clave);
+             personas.add(v1);
+             Persona.saveFile(PATH, personas);
+             return true;
+            }             
+        }else{
+             Persona v1 = new Persona(nombres,apellidos,organizacion,correo,clave);
+             personas.add(v1);
+             Persona.saveFile(PATH, personas);
+             return true;
+            }
+    }  
     @Override
     public boolean equals(Object o){
         if(this==null)

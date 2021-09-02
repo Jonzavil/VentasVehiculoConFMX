@@ -13,8 +13,8 @@ import java.util.Scanner;
  */
 public class Comprador extends Persona {
     private static final long serialVersionUID = 8799656478674716635L;
-    public Comprador(String id, String nombre, String apellidos, String organizacion, String correoElectronico, String clave) {
-        super(id,nombre,apellidos,organizacion,correoElectronico,clave);
+    public Comprador(String nombre, String apellidos, String organizacion, String correoElectronico, String clave) {
+        super(nombre,apellidos,organizacion,correoElectronico,clave);
     }
    
 //     public static Comprador nextCompradorFx(Scanner sc, String nomfile){
@@ -49,13 +49,13 @@ public class Comprador extends Persona {
                 System.out.println("Hacer excepcion para correo repetido");
                 return false;
             }else{
-             Comprador v1 = new Comprador(clave, nombres,apellidos,organizacion,correo,clave);
+             Comprador v1 = new Comprador(nombres,apellidos,organizacion,correo,clave);
              personas.add(v1);
              Persona.saveFile(PATH, personas);
              return true;
             }             
         }else{
-             Comprador v1 = new Comprador(clave, nombres,apellidos,organizacion,correo,clave);
+             Comprador v1 = new Comprador(nombres,apellidos,organizacion,correo,clave);
              personas.add(v1);
              Persona.saveFile(PATH, personas);
              return true;
