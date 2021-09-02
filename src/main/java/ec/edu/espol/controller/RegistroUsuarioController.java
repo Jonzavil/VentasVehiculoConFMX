@@ -8,6 +8,7 @@ package ec.edu.espol.controller;
 import ec.edu.espol.compraventavehiculog6.App;
 import ec.edu.espol.model.Comprador;
 import ec.edu.espol.model.ErrorException;
+import ec.edu.espol.model.Persona;
 import ec.edu.espol.model.Vendedor;
 import java.io.IOException;
 import java.net.URL;
@@ -174,21 +175,37 @@ public class RegistroUsuarioController implements Initializable {
         radiobtnvendedor.setSelected(false);
         btnregistrar.setOnMouseClicked((MouseEvent v)->{
             try {
-            FXMLLoader fxmloader = App.loadFXMLLoader("Pantallavendedor");
-            App.setRoot(fxmloader); 
-            PantallavendedorController hc= fxmloader.getController(); //recupero el controlador
-            String nom=txtnombres.getText();
-            String ape=txtapellidos.getText();
-            String orgn=txtorganizacion.getText();
-            String cor=txtcorreo.getText();
-            String contr=txtclave.getText();
+                String nom=txtnombres.getText();
+                String ape=txtapellidos.getText();
+                String orgn=txtorganizacion.getText();
+                String cor=txtcorreo.getText();
+                String contr=txtclave.getText(); 
+                if(!nom.matches("[a-zA-Z]+$") || !ape.matches("[a-zA-Z]+$") || !orgn.matches("[a-zA-Z]+$")|| ( !cor.matches("[A-Za-z]+@[a-z]+\\.[a-z]+") && !cor.matches("[A-Za-z]+@[a-z]+\\.[a-z]+\\.[a-z]+") )){
+                    Alert p = new Alert(AlertType.ERROR,"Completar todos los campos");
+                    p.show();   
+                }
+                else{
+                    if(Persona.nextAmbosFx(nom,ape,orgn,cor,contr)){ 
+                    Alert c = new Alert(AlertType.CONFIRMATION,"Creacion Exitosa");
+                    c.show();
+                    FXMLLoader fxmloader = App.loadFXMLLoader("Login");
+                    App.setRoot(fxmloader); 
+                    LoginController hc= fxmloader.getController();
+                    }
+                    else{
+                        throw new ErrorException("error");
+                    }
+                }  
             } catch (IOException ex) {
                 Alert a = new Alert(AlertType.ERROR,"No se pudo abrir el archivo");
                 a.show();
+            } catch (ErrorException ex) {
+                Alert c = new Alert(AlertType.ERROR,"Usuario ya registrado");
+                c.show();
             }
+            
         });
-        
-        
+   
    }
 
 
