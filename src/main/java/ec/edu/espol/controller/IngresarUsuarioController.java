@@ -81,11 +81,9 @@ public class IngresarUsuarioController implements Initializable {
     private void sceneregresoinciosesion(MouseEvent event) {
        try {
             FXMLLoader fxmloader = App.loadFXMLLoader("Login");
-            App.setRoot(fxmloader); 
-            LoginController hc= fxmloader.getController(); //recupero el controlador
-               
+            App.setRoot(fxmloader);    
             } catch (IOException ex) {
-                Alert a = new Alert(AlertType.ERROR,"No se pudo abrir el archivo");
+                Alert a = new Alert(AlertType.ERROR,"Error");
                 a.show();
             }
         
