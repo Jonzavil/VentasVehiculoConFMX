@@ -19,7 +19,7 @@ import java.util.Objects;
  * @author David
  */
 public class Vehiculo implements Serializable {
-    private String img;
+    private int img;
     private String placa;
     private String marca;
     private String modelo;
@@ -34,7 +34,7 @@ public class Vehiculo implements Serializable {
     private String traccion;
     private static final long serialVersionUID = 8799656478674716638L;  
     private static final String PATH = "vehiculos.dat";
-    public Vehiculo(String id, String placa, String marca, String modelo, String tipoMotor, int año, double recorrido, String color, String tipoCombustible, double precio, String vidrios, String transmision, String traccion){
+    public Vehiculo(int id, String placa, String marca, String modelo, String tipoMotor, int año, double recorrido, String color, String tipoCombustible, double precio, String vidrios, String transmision, String traccion){
       this.img = id;
       this.placa = placa;
       this.marca = marca;
@@ -49,7 +49,7 @@ public class Vehiculo implements Serializable {
       this.transmision = transmision;
       this.color = color;
     }
-    public Vehiculo(String id, String placa, String marca, String modelo, String tipoMotor, int año, double recorrido, String color, String tipoCombustible, double precio){
+    public Vehiculo(int id, String placa, String marca, String modelo, String tipoMotor, int año, double recorrido, String color, String tipoCombustible, double precio){
       this.img = id;
       this.placa = placa;
       this.marca = marca;
@@ -65,7 +65,7 @@ public class Vehiculo implements Serializable {
       this.color = color;
     }
     
-    public Vehiculo(String id, String placa, String marca, String modelo, String tipoMotor, int año, double recorrido, String color, String tipoCombustible, double precio, String vidrios, String transmision){
+    public Vehiculo(int id, String placa, String marca, String modelo, String tipoMotor, int año, double recorrido, String color, String tipoCombustible, double precio, String vidrios, String transmision){
       this.img = id;
       this.placa = placa;
       this.marca = marca;
@@ -90,7 +90,7 @@ public class Vehiculo implements Serializable {
     }
 
     
-    public String getImg() {
+    public int getImg() {
         return img;
     }
 
@@ -140,7 +140,7 @@ public class Vehiculo implements Serializable {
     }
 
 
-    public void setImg(String id) {
+    public void setImg(int id) {
         this.img = id;
     }
 
@@ -248,7 +248,7 @@ public class Vehiculo implements Serializable {
         }
         return vn;
     }
-     public static Vehiculo registroVehiculo(String tipo,String img,String placa, String marca, String modelo, String tipoMotor, int año, double recorrido, String color, String tipoCombustible, double precio, String vidrios, String transmision, String traccion) throws ErrorException{
+     public static Vehiculo registroVehiculo(String tipo,int img,String placa, String marca, String modelo, String tipoMotor, int año, double recorrido, String color, String tipoCombustible, double precio, String vidrios, String transmision, String traccion) throws ErrorException{
          ArrayList<Vehiculo> vehiculos = Vehiculo.readFile(PATH);
          Vehiculo v1 = null;
          if(!searchByPlaca(vehiculos,placa).equals(placa)){
