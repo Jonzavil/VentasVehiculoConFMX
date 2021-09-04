@@ -25,6 +25,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
@@ -52,14 +53,19 @@ public class PantallavendedorController implements Initializable {
     private GridPane grippaneoferta;
     @FXML
     private VBox vboxofertas;
+    @FXML
+    private ScrollPane scrollpaneimagenes;
+
 
     /**
      * Initializes the controller class.
      */
     
+    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
+
     }    
 
     @FXML
@@ -127,7 +133,7 @@ public class PantallavendedorController implements Initializable {
         camposregistro.add(btnsalir,0,14);
         camposregistro.add(btnregistrarvehi,1,14);
         //"^[0-9]+(.[0-9]+)?$"
-        
+
         btnsubirimagen.setOnMouseClicked((MouseEvent n)->{
             FileChooser fileChooser = new FileChooser();
             fileChooser.getExtensionFilters().addAll(
@@ -173,6 +179,21 @@ public class PantallavendedorController implements Initializable {
 
     @FXML
     private void eventoaceptarofer(MouseEvent event) {
+        Button btnbuscar=new Button("Buscar:");
+        TextField campobusqueda= new TextField();
+        campobusqueda.setMaxWidth(80);
+        Button btnsaliroferta = new Button("Salir");
+        scrollpaneimagenes.setMaxHeight(200);
+        scrollpaneimagenes.setMaxWidth(200);
+        grippaneoferta.add(btnbuscar,0,1);
+        grippaneoferta.add(campobusqueda,1,1);
+        grippaneoferta.add(btnsaliroferta,0,2);
+        btnsaliroferta.setOnMouseClicked((MouseEvent r)->{
+            grippaneoferta.getChildren().clear();
+        });
+        
+        
+        
     }
 
     @FXML
