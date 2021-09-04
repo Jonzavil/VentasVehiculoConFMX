@@ -99,7 +99,7 @@ public class RegistroUsuarioController implements Initializable {
                 String orgn=txtorganizacion.getText();
                 String cor=txtcorreo.getText();
                 String contr=txtclave.getText(); 
-                if(!nom.matches("[a-zA-Z]+$") || !ape.matches("[a-zA-Z]+$") || !orgn.matches("[a-zA-Z]+$")|| ( !cor.matches("[A-Za-z]+@[a-z]+\\.[a-z]+") && !cor.matches("[A-Za-z]+@[a-z]+\\.[a-z]+\\.[a-z]+") )){
+                if((!nom.matches("[a-zA-Z]+[ ][a-zA-Z]+$") && !nom.matches("[a-zA-Z]+$")) || (!ape.matches("[a-zA-Z]+[ ][a-zA-Z]+$$") && !ape.matches("[a-zA-Z]+$$")) || !orgn.matches("[a-zA-Z]+$")|| ( !cor.matches("[a-zA-Z_0-9]+@[a-z]+\\.[a-z]+") && !cor.matches("[a-zA-Z_0-9]+@[a-z]+\\.[a-z]+\\.[a-z]+") )){
                     Alert p = new Alert(AlertType.ERROR,"Completar todos los campos");
                     p.show();   
                 }
@@ -141,7 +141,7 @@ public class RegistroUsuarioController implements Initializable {
                 String orgn=txtorganizacion.getText();
                 String cor=txtcorreo.getText();
                 String contr=txtclave.getText(); 
-                if(!nom.matches("[a-zA-Z]+$") || !ape.matches("[a-zA-Z]+$") || !orgn.matches("[a-zA-Z]+$")|| ( !cor.matches("[A-Za-z]+@[a-z]+\\.[a-z]+") && !cor.matches("[A-Za-z]+@[a-z]+\\.[a-z]+\\.[a-z]+") )){
+                if( (!nom.matches("[a-zA-Z]+[ ][a-zA-Z]+$") && !nom.matches("[a-zA-Z]+$")) || (!ape.matches("[a-zA-Z]+[ ][a-zA-Z]+$$") && !ape.matches("[a-zA-Z]+$$")) || !orgn.matches("[a-zA-Z]+$")|| ( !cor.matches("[a-zA-Z_0-9]+@[a-z]+\\.[a-z]+") && !cor.matches("[a-zA-Z_0-9]+@[a-z]+\\.[a-z]+\\.[a-z]+") )){
                     Alert p = new Alert(AlertType.ERROR,"Completar todos los campos");
                     p.show();   
                 }
@@ -180,7 +180,7 @@ public class RegistroUsuarioController implements Initializable {
                 String orgn=txtorganizacion.getText();
                 String cor=txtcorreo.getText();
                 String contr=txtclave.getText(); 
-                if(!nom.matches("[a-zA-Z]+$") || !ape.matches("[a-zA-Z]+$") || !orgn.matches("[a-zA-Z]+$")|| ( !cor.matches("[A-Za-z]+@[a-z]+\\.[a-z]+") && !cor.matches("[A-Za-z]+@[a-z]+\\.[a-z]+\\.[a-z]+") )){
+                if((!nom.matches("[a-zA-Z]+[ ][a-zA-Z]+$") && !nom.matches("[a-zA-Z]+$")) || (!ape.matches("[a-zA-Z]+[ ][a-zA-Z]+$$") && !ape.matches("[a-zA-Z]+$$")) || !orgn.matches("[a-zA-Z]+$")|| ( !cor.matches("[a-zA-Z_0-9]+@[a-z]+\\.[a-z]+") && !cor.matches("[a-zA-Z_0-9]+@[a-z]+\\.[a-z]+\\.[a-z]+") )){
                     Alert p = new Alert(AlertType.ERROR,"Completar todos los campos");
                     p.show();   
                 }
