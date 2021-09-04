@@ -190,7 +190,6 @@ public class RegistroUsuarioController implements Initializable {
                     c.show();
                     FXMLLoader fxmloader = App.loadFXMLLoader("Login");
                     App.setRoot(fxmloader); 
-                    LoginController hc= fxmloader.getController();
                     }
                     else{
                         throw new ErrorException("error");
