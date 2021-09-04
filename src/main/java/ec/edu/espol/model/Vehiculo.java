@@ -211,7 +211,7 @@ public class Vehiculo implements Serializable {
         hash = 97 * hash + Objects.hashCode(this.placa);
         return hash;
     }
-    public void saveFile(String nomfile, ArrayList<Vehiculo> vehiculos){
+    public static void saveFile(String nomfile, ArrayList<Vehiculo> vehiculos){
          try{
             FileOutputStream fous =new FileOutputStream(nomfile);
             ObjectOutputStream out = new ObjectOutputStream(fous);
