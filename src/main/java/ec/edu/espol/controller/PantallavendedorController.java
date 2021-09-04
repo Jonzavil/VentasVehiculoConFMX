@@ -5,11 +5,15 @@
  */
 package ec.edu.espol.controller;
 
+import ec.edu.espol.compraventavehiculog6.App;
 import ec.edu.espol.model.Vehiculo;
+import java.io.File;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
@@ -23,6 +27,9 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
+import javafx.stage.FileChooser;
 
 /**
  * FXML Controller class
@@ -38,10 +45,13 @@ public class PantallavendedorController implements Initializable {
     @FXML
     private Button btnperfil;
     @FXML
-    private ScrollPane scrollpane;
-//    private FlowPane flowpanecampos;
-    @FXML
     private GridPane camposregistro;
+    @FXML
+    private Button btnsalirpantallavendedor;
+    @FXML
+    private GridPane grippaneoferta;
+    @FXML
+    private VBox vboxofertas;
 
     /**
      * Initializes the controller class.
@@ -81,6 +91,9 @@ public class PantallavendedorController implements Initializable {
         Label color = new Label("Color: ");
         TextField campocolor= new TextField();
         Button btnregistrarvehi= new Button("Registrar");
+        Button btnsubirimagen=new Button("Subir imagen: ");
+        TextField direccionimage= new TextField();
+        Button btnsalir=new Button("Salir");
         camposregistro.setVgap(2);
         camposregistro.setHgap(8);
         camposregistro.add(id, 0, 0);
@@ -109,12 +122,28 @@ public class PantallavendedorController implements Initializable {
         camposregistro.add(campotransmicion, 1, 11);
         camposregistro.add(color, 0, 12);
         camposregistro.add(campocolor, 1, 12);
-        camposregistro.add(btnregistrarvehi,1,13);
+        camposregistro.add(btnsubirimagen,0,13);
+        camposregistro.add(direccionimage,1,13);
+        camposregistro.add(btnsalir,0,14);
+        camposregistro.add(btnregistrarvehi,1,14);
         //"^[0-9]+(.[0-9]+)?$"
+        
+        btnsubirimagen.setOnMouseClicked((MouseEvent n)->{
+            FileChooser fileChooser = new FileChooser();
+            fileChooser.getExtensionFilters().addAll(
+                    new FileChooser.ExtensionFilter("All imagenes", "*.*"),
+                    new FileChooser.ExtensionFilter("JPG", "*.jpg"),
+                    new FileChooser.ExtensionFilter("PNG", "*.png"));
+            File file = fileChooser.showOpenDialog(null);
+            if (file != null) {
+                direccionimage.setText(file.getPath());
+            }
+        });
+        
         btnregistrarvehi.setOnMouseClicked((MouseEvent x)->{
             ArrayList<Vehiculo> vehiculos = new ArrayList<>();
-            if(!campoid.getText().matches("[0-9]+$") || !campoplaca.getText().matches("[a-zA-Z_0-9]+$") || !campomarca.getText().matches("[a-zA-Z]+$") || !campomodelo.getText().matches("[a-zA-Z]+$") || !campotipom.getText().matches("[a-zA-Z]+$") || !campoyear.getText().matches("[0-9]+$") || !camporecorrido.getText().matches("[0-9]+$") || !campotipocombustible.getText().matches("[a-zA-Z]+$") || !campoprecio.getText().matches("[0-9]+$") || (!campovidrio.getText().matches("[a-zA-Z]+$") && campovidrio.getText()==null)|| (!campotraccion.getText().matches("[a-zA-Z]+$")&& campotraccion.getText()==null)|| (!campotransmicion.getText().matches("[a-zA-Z]+$") && campotransmicion.getText()==null) || !campocolor.getText().matches("[a-zA-Z]+$")){
-                Alert h = new Alert(AlertType.ERROR,"Completar todos los campos");
+            if(!campoid.getText().matches("[0-9]+$") || !campoplaca.getText().matches("[a-zA-Z_0-9]+$") || !campomarca.getText().matches("[a-zA-Z]+$") || !campomodelo.getText().matches("[a-zA-Z]+$") || !campotipom.getText().matches("[a-zA-Z]+$") || !campoyear.getText().matches("[0-9]+$") || !camporecorrido.getText().matches("[0-9]+$") || !campotipocombustible.getText().matches("[a-zA-Z]+$") || !campoprecio.getText().matches("[0-9]+$") || (!campovidrio.getText().matches("[a-zA-Z]+$") && campovidrio.getText()==null)|| (!campotraccion.getText().matches("[a-zA-Z]+$")&& campotraccion.getText()==null)|| (!campotransmicion.getText().matches("[a-zA-Z]+$") && campotransmicion.getText()==null) || !campocolor.getText().matches("[a-zA-Z]+$") || direccionimage.getText()==null){
+                Alert h = new Alert(AlertType.ERROR,"Volver a registrarse correctamente");
                 h.show(); 
             }else{
                 if(campovidrio.getText()==null && campotransmicion.getText()==null && campotraccion.getText()==null){
@@ -132,6 +161,10 @@ public class PantallavendedorController implements Initializable {
             }
             
         });
+        
+        btnsalir.setOnMouseClicked((MouseEvent m)->{
+            camposregistro.getChildren().clear();
+        });
 
 
         
@@ -144,6 +177,17 @@ public class PantallavendedorController implements Initializable {
 
     @FXML
     private void eventoperfil(MouseEvent event) {
+    }
+
+    @FXML
+    private void salirpantallavendedor(MouseEvent event) {
+        try {
+            FXMLLoader fxmloader = App.loadFXMLLoader("IngresarUsuario");
+            App.setRoot(fxmloader); 
+        } catch (IOException ex) {
+            Alert a = new Alert(AlertType.ERROR,"Error");
+            a.show();
+        }
     }
     
 }
