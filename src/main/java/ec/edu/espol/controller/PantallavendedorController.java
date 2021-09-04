@@ -113,7 +113,7 @@ public class PantallavendedorController implements Initializable {
         //"^[0-9]+(.[0-9]+)?$"
         btnregistrarvehi.setOnMouseClicked((MouseEvent x)->{
             ArrayList<Vehiculo> vehiculos = new ArrayList<>();
-            if(!campoid.getText().matches("[a-zA-Z]+$") || !campoplaca.getText().matches("[a-zA-Z_0-9]+$") || !campomarca.getText().matches("[a-zA-Z]+$") || !campomodelo.getText().matches("[a-zA-Z]+$") || !campotipom.getText().matches("[a-zA-Z]+$") || !campoyear.getText().matches("[0-9]+$") || !camporecorrido.getText().matches("[0-9]+$") || !campotipocombustible.getText().matches("[a-zA-Z]+$") || !campoprecio.getText().matches("[0-9]+$") || (!campovidrio.getText().matches("[a-zA-Z]+$") && campovidrio.getText()==null)|| (!campotraccion.getText().matches("[a-zA-Z]+$")&& campotraccion.getText()==null)|| (!campotransmicion.getText().matches("[a-zA-Z]+$") && campotransmicion.getText()==null) || !campocolor.getText().matches("[a-zA-Z]+$")){
+            if(!campoid.getText().matches("[0-9]+$") || !campoplaca.getText().matches("[a-zA-Z_0-9]+$") || !campomarca.getText().matches("[a-zA-Z]+$") || !campomodelo.getText().matches("[a-zA-Z]+$") || !campotipom.getText().matches("[a-zA-Z]+$") || !campoyear.getText().matches("[0-9]+$") || !camporecorrido.getText().matches("[0-9]+$") || !campotipocombustible.getText().matches("[a-zA-Z]+$") || !campoprecio.getText().matches("[0-9]+$") || (!campovidrio.getText().matches("[a-zA-Z]+$") && campovidrio.getText()==null)|| (!campotraccion.getText().matches("[a-zA-Z]+$")&& campotraccion.getText()==null)|| (!campotransmicion.getText().matches("[a-zA-Z]+$") && campotransmicion.getText()==null) || !campocolor.getText().matches("[a-zA-Z]+$")){
                 Alert h = new Alert(AlertType.ERROR,"Completar todos los campos");
                 h.show(); 
             }else{
@@ -121,14 +121,16 @@ public class PantallavendedorController implements Initializable {
                     Vehiculo v1 = new Vehiculo(Integer.parseInt(campoid.getText()),campoplaca.getText(),campomarca.getText(),campomodelo.getText(),campotipom.getText(),Integer.parseInt(campoyear.getText()),Integer.parseInt(camporecorrido.getText()),campocolor.getText(),campotipocombustible.getText(),Integer.parseInt(campoprecio.getText())); 
                     vehiculos.add(v1);
                     Vehiculo.saveFile("vehiculos.dat", vehiculos);
+                    camposregistro.getChildren().clear();
                 }
                 else{
                     Vehiculo v2 = new Vehiculo(Integer.parseInt(campoid.getText()),campoplaca.getText(),campomarca.getText(),campomodelo.getText(),campotipom.getText(),Integer.parseInt(campoyear.getText()),Integer.parseInt(camporecorrido.getText()),campocolor.getText(),campotipocombustible.getText(),Integer.parseInt(campoprecio.getText()),campovidrio.getText(),campotransmicion.getText(),campotraccion.getText());
                     vehiculos.add(v2);
                     Vehiculo.saveFile("vehiculos.dat", vehiculos);
+                    camposregistro.getChildren().clear();
                 }
-
             }
+            
         });
 
 
