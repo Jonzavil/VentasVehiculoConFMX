@@ -3,7 +3,6 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ScrollPane?>
-<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
@@ -12,12 +11,14 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ec.edu.espol.controller.PantallavendedorController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="511.0" prefWidth="655.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ec.edu.espol.controller.PantallavendedorController">
    <top>
       <GridPane BorderPane.alignment="CENTER">
         <columnConstraints>
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
         </columnConstraints>
         <rowConstraints>
@@ -26,22 +27,30 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Menu Vendedor" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Menu Vendedor" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
                <font>
                   <Font name="Bell MT Bold" size="23.0" />
                </font>
             </Text>
-            <Button fx:id="btnregistrovehiculo" mnemonicParsing="false" onMouseClicked="#eventoregistrovehiculo" text="Registrar Vehiculo" GridPane.halignment="CENTER" GridPane.rowIndex="2">
+            <Button fx:id="btnregistrovehiculo" mnemonicParsing="false" onMouseClicked="#eventoregistrovehiculo" text="Registrar Vehiculo" GridPane.halignment="RIGHT" GridPane.rowIndex="2">
+               <font>
+                  <Font name="Bell MT Bold" size="13.0" />
+               </font>
+               <GridPane.margin>
+                  <Insets />
+               </GridPane.margin>
+            </Button>
+            <Button fx:id="btnaceptaroferta" mnemonicParsing="false" onMouseClicked="#eventoaceptarofer" text="Aceptar Oferta" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="2">
                <font>
                   <Font name="Bell MT Bold" size="13.0" />
                </font>
             </Button>
-            <Button fx:id="btnaceptaroferta" mnemonicParsing="false" onMouseClicked="#eventoaceptarofer" text="Aceptar Oferta" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2">
+            <Button fx:id="btnperfil" mnemonicParsing="false" onMouseClicked="#eventoperfil" text="Perfil" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.rowIndex="2">
                <font>
                   <Font name="Bell MT Bold" size="13.0" />
                </font>
             </Button>
-            <Button fx:id="btnperfil" mnemonicParsing="false" onMouseClicked="#eventoperfil" text="Perfil" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="2">
+            <Button fx:id="btnsalirpantallavendedor" mnemonicParsing="false" onMouseClicked="#salirpantallavendedor" text="Salir" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                <font>
                   <Font name="Bell MT Bold" size="13.0" />
                </font>
@@ -59,7 +68,7 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <GridPane GridPane.columnIndex="1">
+            <GridPane fx:id="grippaneoferta" GridPane.columnIndex="1">
               <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" maxWidth="276.600048828125" minWidth="10.0" prefWidth="78.20001220703125" />
                   <ColumnConstraints hgrow="SOMETIMES" maxWidth="221.39998779296877" minWidth="10.0" prefWidth="221.39998779296877" />
@@ -72,18 +81,12 @@
                <children>
                   <ScrollPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1">
                      <content>
-                        <VBox prefHeight="200.0" prefWidth="100.0" />
+                        <VBox fx:id="vboxofertas" prefHeight="200.0" prefWidth="100.0" />
                      </content>
                      <GridPane.margin>
                         <Insets right="5.0" top="3.0" />
                      </GridPane.margin>
                   </ScrollPane>
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Buscar:" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
-                  <TextField GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1">
-                     <GridPane.margin>
-                        <Insets left="20.0" right="20.0" />
-                     </GridPane.margin>
-                  </TextField>
                </children>
             </GridPane>
             <GridPane fx:id="camposregistro">
@@ -95,6 +98,7 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
