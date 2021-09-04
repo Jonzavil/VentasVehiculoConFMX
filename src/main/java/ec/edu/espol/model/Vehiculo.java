@@ -5,7 +5,6 @@
  */
 package ec.edu.espol.model;
 
-import ec.edu.espol.util.Util;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -20,7 +19,7 @@ import java.util.Objects;
  * @author David
  */
 public class Vehiculo implements Serializable {
-    private int id;
+    private int img;
     private String placa;
     private String marca;
     private String modelo;
@@ -36,7 +35,7 @@ public class Vehiculo implements Serializable {
     private static final long serialVersionUID = 8799656478674716638L;  
     private static final String PATH = "vehiculos.dat";
     public Vehiculo(int id, String placa, String marca, String modelo, String tipoMotor, int año, double recorrido, String color, String tipoCombustible, double precio, String vidrios, String transmision, String traccion){
-      this.id = id;
+      this.img = id;
       this.placa = placa;
       this.marca = marca;
       this.modelo = modelo;
@@ -51,7 +50,7 @@ public class Vehiculo implements Serializable {
       this.color = color;
     }
     public Vehiculo(int id, String placa, String marca, String modelo, String tipoMotor, int año, double recorrido, String color, String tipoCombustible, double precio){
-        this.id = id;
+      this.img = id;
       this.placa = placa;
       this.marca = marca;
       this.modelo = modelo;
@@ -67,7 +66,7 @@ public class Vehiculo implements Serializable {
     }
     
     public Vehiculo(int id, String placa, String marca, String modelo, String tipoMotor, int año, double recorrido, String color, String tipoCombustible, double precio, String vidrios, String transmision){
-      this.id = id;
+      this.img = id;
       this.placa = placa;
       this.marca = marca;
       this.modelo = modelo;
@@ -91,8 +90,8 @@ public class Vehiculo implements Serializable {
     }
 
     
-    public int getId() {
-        return id;
+    public int getImg() {
+        return img;
     }
 
 
@@ -141,8 +140,8 @@ public class Vehiculo implements Serializable {
     }
 
 
-    public void setId(int id) {
-        this.id = id;
+    public void setImg(int id) {
+        this.img = id;
     }
 
     public void setPlaca(String placa) {
@@ -190,7 +189,7 @@ public class Vehiculo implements Serializable {
     } 
     @Override
     public String toString(){
-        return this.id+"|"+this.placa+"|"+this.marca+"|"+this.modelo+"|"+this.tipoMotor+"|"+this.año+"|"+this.recorrido+"|"+this.color+"|"+this.tipoCombustible+"|"+this.precio+"|"+this.vidrios+"|"+this.transmision+"|"+this.traccion;
+        return this.img+"|"+this.placa+"|"+this.marca+"|"+this.modelo+"|"+this.tipoMotor+"|"+this.año+"|"+this.recorrido+"|"+this.color+"|"+this.tipoCombustible+"|"+this.precio+"|"+this.vidrios+"|"+this.transmision+"|"+this.traccion;
     }
     @Override
     public boolean equals(Object obj) {
@@ -249,42 +248,57 @@ public class Vehiculo implements Serializable {
         }
         return vn;
     }
-     public static Vehiculo registroVehiculo(String tipo,String placa, String marca, String modelo, String tipoMotor, int año, double recorrido, String color, String tipoCombustible, double precio, String vidrios, String transmision, String traccion){
+     public static Vehiculo registroVehiculo(String tipo,int img,String placa, String marca, String modelo, String tipoMotor, int año, double recorrido, String color, String tipoCombustible, double precio, String vidrios, String transmision, String traccion) throws ErrorException{
          ArrayList<Vehiculo> vehiculos = Vehiculo.readFile(PATH);
          Vehiculo v1 = null;
-         int id = Util.nextID(PATH);
          if(!searchByPlaca(vehiculos,placa).equals(placa)){
              switch (tipo) {
                  case "moto":
                  {
-                     v1 = new Vehiculo(id,placa,marca,modelo,tipoMotor,año,recorrido,color,tipoCombustible,precio);
+                     v1 = new Vehiculo(img,placa,marca,modelo,tipoMotor,año,recorrido,color,tipoCombustible,precio);
                      v1.saveFile(PATH,vehiculos);
                      return v1;
                  }
                  case "camioneta":
                  {
-                     v1 = new Vehiculo(id,placa,marca,modelo,tipoMotor,año,recorrido,color,tipoCombustible,precio,vidrios,transmision,traccion);
+                     v1 = new Vehiculo(img,placa,marca,modelo,tipoMotor,año,recorrido,color,tipoCombustible,precio,vidrios,transmision,traccion);
                      v1.saveFile(PATH,vehiculos);
                      return v1;
                  }       
                  case "auto":
                  {
-                     v1 = new Vehiculo(id,placa,marca,modelo,tipoMotor,año,recorrido,color,tipoCombustible,precio,vidrios,transmision);
+                     v1 = new Vehiculo(img,placa,marca,modelo,tipoMotor,año,recorrido,color,tipoCombustible,precio,vidrios,transmision);
                      v1.saveFile(PATH,vehiculos);
                      return v1;
                  }
                  default:
-                     break;
+                 {
+                     throw new ErrorException("No se pudo crear onjeto");
+                 }
              }
          }else
             return v1;
-        return null;
      } 
      public static ArrayList<Vehiculo> busquedaPorVehiculo(String tipo){
         ArrayList<Vehiculo> v1=Vehiculo.readFile(PATH);
         ArrayList<Vehiculo> ofer=new ArrayList<>();
+        tipo=tipo.toLowerCase();
         for(Vehiculo v: v1){
-            //// detallar el tipo de busqueda
+            if(tipo.contains(v.color)&& tipo.contains(v.marca)){
+                ofer.add(v);
+            }
+            else if(tipo.contains(v.color)&& tipo.contains(v.modelo)){
+                ofer.add(v);
+            }
+            else if(tipo.contains(v.marca)&& tipo.contains(v.modelo)){
+                ofer.add(v);
+            }
+            else if(tipo.contains(v.color)&& tipo.contains(v.modelo)&& tipo.contains(v.marca)){
+                ofer.add(v);
+            }
+            else if(tipo.contains(v.color)||tipo.contains(v.marca)||tipo.contains(v.modelo)||tipo.contains(v.placa)||tipo.contains(v.tipoCombustible)||tipo.contains(v.tipoMotor)||tipo.contains(v.traccion)||tipo.contains(v.transmision)||tipo.contains(v.vidrios)||tipo.contains("moto")||tipo.contains("auto")||tipo.contains("camioneta")){
+                ofer.add(v);
+            }
         }
         return ofer;        
     }
