@@ -58,9 +58,8 @@ public class LoginController implements Initializable {
             
             FXMLLoader fxmloader = App.loadFXMLLoader("RegistroUsuario");
             App.setRoot(fxmloader); 
-            RegistroUsuarioController hc= fxmloader.getController(); //recupero el controlador
             } catch (IOException ex) {
-                Alert a = new Alert(AlertType.ERROR,"No se pudo abrir el archivo");
+                Alert a = new Alert(AlertType.ERROR,"Error");
                 a.show();
             }
     }
