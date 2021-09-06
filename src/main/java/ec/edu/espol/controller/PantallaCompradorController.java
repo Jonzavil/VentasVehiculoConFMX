@@ -108,7 +108,6 @@ public class PantallaCompradorController implements Initializable {
     private void buscarV(MouseEvent event) {
         String contenido= buscar.getText();
         ArrayList<Vehiculo> o=Vehiculo.busquedaPorVehiculo(contenido);
-        //System.out.println(o);
         if(o.isEmpty()){
             try {
                 throw new ErrorException("archivo vacio");
@@ -133,8 +132,7 @@ public class PantallaCompradorController implements Initializable {
                 traccion.setCellValueFactory(new PropertyValueFactory<Vehiculo,String>("Traccion"));
                 transmicion.setCellValueFactory(new PropertyValueFactory<Vehiculo,String>("Transmision"));
                 precio.setCellValueFactory(new PropertyValueFactory<Vehiculo,Double>("Precio"));
-            }
-            
+            }          
                 table.setItems(list);
             
         }
