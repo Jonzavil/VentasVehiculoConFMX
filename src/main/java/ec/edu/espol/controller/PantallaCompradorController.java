@@ -35,7 +35,7 @@ import javafx.scene.input.MouseEvent;
  * @author ZavalaAvila
  */
 public class PantallaCompradorController implements Initializable {
-    ObservableList<Vehiculo> list;
+    ObservableList<Vehiculo> list=FXCollections.observableArrayList();
     @FXML
     private Button perfil;
     @FXML
@@ -118,25 +118,24 @@ public class PantallaCompradorController implements Initializable {
             }
         }else{
             for(Vehiculo j:o){
-                list = FXCollections.observableArrayList(new Vehiculo(j.getPlaca(),j.getMarca(),j.getModelo(),j.getTipoMotor(),j.getAño(),j.getRecorrido(),j.getColor(),j.getTipoCombustible(),j.getPrecio(),j.getVidrios(),j.getTransmision(),j.getTraccion(),j.getDireccionimage()));
+                Vehiculo v = new Vehiculo(j.getPlaca(),j.getMarca(),j.getModelo(),j.getTipoMotor(),j.getAño(),j.getRecorrido(),j.getColor(),j.getTipoCombustible(),j.getPrecio(),j.getVidrios(),j.getTransmision(),j.getTraccion(),j.getDireccionimage());
+                list.add(v);
+                img.setCellValueFactory(new PropertyValueFactory<Vehiculo,String>("Direccionimage"));
+                placa.setCellValueFactory(new PropertyValueFactory<Vehiculo,String>("Placa"));
+                marca.setCellValueFactory(new PropertyValueFactory<Vehiculo,String>("Marca"));
+                modelo.setCellValueFactory(new PropertyValueFactory<Vehiculo,String>("Modelo"));
+                motor.setCellValueFactory(new PropertyValueFactory<Vehiculo,String>("TipoMotor"));
+                año.setCellValueFactory(new PropertyValueFactory<Vehiculo,Integer>("Año"));
+                recorrido.setCellValueFactory(new PropertyValueFactory<Vehiculo,Double>("Recorrido"));
+                combustible.setCellValueFactory(new PropertyValueFactory<Vehiculo,String>("TipoCombustible"));
+                color.setCellValueFactory(new PropertyValueFactory<Vehiculo,String>("Color"));
+                vidrios.setCellValueFactory(new PropertyValueFactory<Vehiculo,String>("Vidrios"));
+                traccion.setCellValueFactory(new PropertyValueFactory<Vehiculo,String>("Traccion"));
+                transmicion.setCellValueFactory(new PropertyValueFactory<Vehiculo,String>("Transmision"));
+                precio.setCellValueFactory(new PropertyValueFactory<Vehiculo,Double>("Precio"));
             }
-            img.setCellValueFactory(new PropertyValueFactory<Vehiculo,String>("Direccionimage"));
             
-            placa.setCellValueFactory(new PropertyValueFactory<Vehiculo,String>("Placa"));
-            marca.setCellValueFactory(new PropertyValueFactory<Vehiculo,String>("Marca"));
-            modelo.setCellValueFactory(new PropertyValueFactory<Vehiculo,String>("Modelo"));
-            motor.setCellValueFactory(new PropertyValueFactory<Vehiculo,String>("TipoMotor"));
-            año.setCellValueFactory(new PropertyValueFactory<Vehiculo,Integer>("Año"));
-            recorrido.setCellValueFactory(new PropertyValueFactory<Vehiculo,Double>("Recorrido"));
-            combustible.setCellValueFactory(new PropertyValueFactory<Vehiculo,String>("TipoCombustible"));
-            color.setCellValueFactory(new PropertyValueFactory<Vehiculo,String>("Color"));
-            vidrios.setCellValueFactory(new PropertyValueFactory<Vehiculo,String>("Vidrios"));
-            traccion.setCellValueFactory(new PropertyValueFactory<Vehiculo,String>("Traccion"));
-            transmicion.setCellValueFactory(new PropertyValueFactory<Vehiculo,String>("Transmision"));
-            precio.setCellValueFactory(new PropertyValueFactory<Vehiculo,Double>("Precio"));
-            System.out.println(o);
-            System.out.println(list);
-            table.setItems(list);
+                table.setItems(list);
             
         }
     }

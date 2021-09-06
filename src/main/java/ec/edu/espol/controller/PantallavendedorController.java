@@ -6,6 +6,7 @@
 package ec.edu.espol.controller;
 
 import ec.edu.espol.compraventavehiculog6.App;
+import ec.edu.espol.model.ErrorException;
 import ec.edu.espol.model.Vehiculo;
 import java.io.File;
 import java.io.IOException;
@@ -155,23 +156,31 @@ public class PantallavendedorController implements Initializable {
                 h.show(); 
             }else{
                 if(campovidrio.getText()==null && campotransmicion.getText()==null && campotraccion.getText()==null){
-                    Vehiculo v1 = new Vehiculo(campoplaca.getText(),campomarca.getText(),campomodelo.getText(),campotipom.getText(),Integer.parseInt(campoyear.getText()),Integer.parseInt(camporecorrido.getText()),campocolor.getText(),campotipocombustible.getText(),Integer.parseInt(campoprecio.getText()),direccionimage.getText()); 
-                    vehiculos.add(v1);
-                    Vehiculo.saveFile("vehiculos.dat", vehiculos);
-                    camposregistro.getChildren().clear();
+                    try {
+                        Vehiculo.registroVehiculo("moto",campoplaca.getText(),campomarca.getText(),campomodelo.getText(),campotipom.getText(),Integer.parseInt(campoyear.getText()),Integer.parseInt(camporecorrido.getText()),campocolor.getText(),campotipocombustible.getText(),Integer.parseInt(campoprecio.getText()),"null","null","null",direccionimage.getText());
+                        camposregistro.getChildren().clear();
+                    } catch (ErrorException ex) {
+                        Alert h = new Alert(AlertType.ERROR,"Placa Registrada");
+                        h.show();
+                    }
                 }
                 else if(campotraccion.getText()==null){
-                    Vehiculo v2 = new Vehiculo(campoplaca.getText(),campomarca.getText(),campomodelo.getText(),campotipom.getText(),Integer.parseInt(campoyear.getText()),Integer.parseInt(camporecorrido.getText()),campocolor.getText(),campotipocombustible.getText(),Integer.parseInt(campoprecio.getText()),campovidrio.getText(),campotransmicion.getText(),direccionimage.getText());
-                    vehiculos.add(v2);
-                    Vehiculo.saveFile("vehiculos.dat", vehiculos);
-                    camposregistro.getChildren().clear();
+                    try {
+                        Vehiculo.registroVehiculo("auto",campoplaca.getText(),campomarca.getText(),campomodelo.getText(),campotipom.getText(),Integer.parseInt(campoyear.getText()),Integer.parseInt(camporecorrido.getText()),campocolor.getText(),campotipocombustible.getText(),Integer.parseInt(campoprecio.getText()),campovidrio.getText(),campotransmicion.getText(),"null",direccionimage.getText());
+                        camposregistro.getChildren().clear();
+                    } catch (ErrorException ex) {
+                         Alert h = new Alert(AlertType.ERROR,"Placa Registrada");
+                         h.show();
+                    }
                 }
                 else{
-                    Vehiculo v3 = new Vehiculo(campoplaca.getText(),campomarca.getText(),campomodelo.getText(),campotipom.getText(),Integer.parseInt(campoyear.getText()),Integer.parseInt(camporecorrido.getText()),campocolor.getText(),campotipocombustible.getText(),Integer.parseInt(campoprecio.getText()),campovidrio.getText(),campotransmicion.getText(),campotraccion.getText(),direccionimage.getText());
-                    System.out.println(v3);
-                    vehiculos.add(v3);
-                    Vehiculo.saveFile("vehiculos.dat", vehiculos);
-                    camposregistro.getChildren().clear();
+                    try {
+                        Vehiculo.registroVehiculo("camioneta",campoplaca.getText(),campomarca.getText(),campomodelo.getText(),campotipom.getText(),Integer.parseInt(campoyear.getText()),Integer.parseInt(camporecorrido.getText()),campocolor.getText(),campotipocombustible.getText(),Integer.parseInt(campoprecio.getText()),campovidrio.getText(),campotransmicion.getText(),campotraccion.getText(),direccionimage.getText());
+                        camposregistro.getChildren().clear();
+                    } catch (ErrorException ex) {
+                         Alert h = new Alert(AlertType.ERROR,"Placa Registrada");
+                         h.show();
+                    }
                 }
                     
             }

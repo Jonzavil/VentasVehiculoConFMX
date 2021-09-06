@@ -260,7 +260,7 @@ public class Vehiculo implements Serializable {
         }
         return vn;
     }
-     public static Vehiculo registroVehiculo(String tipo,int img,String placa, String marca, String modelo, String tipoMotor, int año, double recorrido, String color, String tipoCombustible, double precio, String vidrios, String transmision, String traccion,String direccionimage) throws ErrorException{
+     public static ArrayList<Vehiculo> registroVehiculo(String tipo,String placa, String marca, String modelo, String tipoMotor, int año, double recorrido, String color, String tipoCombustible, double precio, String vidrios, String transmision, String traccion,String direccionimage) throws ErrorException{
          ArrayList<Vehiculo> vehiculos = Vehiculo.readFile(PATH);
          Vehiculo v1 = null;
          if(!searchByPlaca(vehiculos,placa).equals(placa)){
@@ -268,20 +268,20 @@ public class Vehiculo implements Serializable {
                  case "moto":
                  {
                      v1 = new Vehiculo(placa,marca,modelo,tipoMotor,año,recorrido,color,tipoCombustible,precio,direccionimage);
-                     v1.saveFile(PATH,vehiculos);
-                     return v1;
+                     vehiculos.add(v1);
+                     Vehiculo.saveFile(PATH, vehiculos);
                  }
                  case "camioneta":
                  {
                      v1 = new Vehiculo(placa,marca,modelo,tipoMotor,año,recorrido,color,tipoCombustible,precio,vidrios,transmision,traccion,direccionimage);
-                     v1.saveFile(PATH,vehiculos);
-                     return v1;
+                     vehiculos.add(v1);
+                     Vehiculo.saveFile(PATH, vehiculos);
                  }       
                  case "auto":
                  {
                      v1 = new Vehiculo(placa,marca,modelo,tipoMotor,año,recorrido,color,tipoCombustible,precio,vidrios,transmision,direccionimage);
-                     v1.saveFile(PATH,vehiculos);
-                     return v1;
+                     vehiculos.add(v1);
+                     Vehiculo.saveFile(PATH, vehiculos);
                  }
                  default:
                  {
@@ -289,12 +289,14 @@ public class Vehiculo implements Serializable {
                  }
              }
          }else
-            return v1;
+            throw new ErrorException("No se pudo crear onjeto"); 
      } 
      public static ArrayList<Vehiculo> busquedaPorVehiculo(String tipo){
         ArrayList<Vehiculo> v1=Vehiculo.readFile(PATH);
+        System.out.println(v1);
         ArrayList<Vehiculo> ofer=new ArrayList<>();
         for(Vehiculo v: v1){
+            System.out.println(v);
             if(tipo.contains(v.color)&& tipo.contains(v.marca)){
                 ofer.add(v);
             }
