@@ -37,5 +37,7 @@ public class Vendedor extends Persona implements Serializable{
              Persona.saveFile(PATH, personas);
              return true;
             }
-    }   
+    }
+    
+    
 }
