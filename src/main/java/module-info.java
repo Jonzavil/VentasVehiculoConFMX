@@ -7,8 +7,10 @@ module ec.edu.espol.compraventavehiculog6 {
     opens ec.edu.espol.compraventavehiculog6 to javafx.fxml;
     opens ec.edu.espol.controller to javafx.fxml;
     opens ec.edu.espol.util to javafx.fxml;
+    opens ec.edu.espol.model to javafx.fxml;
     exports ec.edu.espol.compraventavehiculog6;
     exports ec.edu.espol.controller;
     exports ec.edu.espol.util; 
+    exports ec.edu.espol.model;
     requires java.mail;
 }
