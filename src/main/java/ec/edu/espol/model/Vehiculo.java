@@ -19,7 +19,7 @@ import java.util.Objects;
  * @author David
  */
 public class Vehiculo implements Serializable {
-    private int img;
+    
     private String placa;
     private String marca;
     private String modelo;
@@ -32,10 +32,13 @@ public class Vehiculo implements Serializable {
     private String vidrios;
     private String transmision;
     private String traccion;
+    private String direccionimage;
+    
+    
     private static final long serialVersionUID = 8799656478674716638L;  
     private static final String PATH = "vehiculos.dat";
-    public Vehiculo(int id, String placa, String marca, String modelo, String tipoMotor, int año, double recorrido, String color, String tipoCombustible, double precio, String vidrios, String transmision, String traccion){
-      this.img = id;
+    public Vehiculo(String placa, String marca, String modelo, String tipoMotor, int año, double recorrido, String color, String tipoCombustible, double precio, String vidrios, String transmision, String traccion,String direccionimage){
+      
       this.placa = placa;
       this.marca = marca;
       this.modelo = modelo;
@@ -48,9 +51,10 @@ public class Vehiculo implements Serializable {
       this.traccion = traccion;
       this.transmision = transmision;
       this.color = color;
+      this.direccionimage=direccionimage;
     }
-    public Vehiculo(int id, String placa, String marca, String modelo, String tipoMotor, int año, double recorrido, String color, String tipoCombustible, double precio){
-      this.img = id;
+    public Vehiculo(String placa, String marca, String modelo, String tipoMotor, int año, double recorrido, String color, String tipoCombustible, double precio, String direccionimage){
+      
       this.placa = placa;
       this.marca = marca;
       this.modelo = modelo;
@@ -63,10 +67,12 @@ public class Vehiculo implements Serializable {
       this.traccion = null;
       this.transmision = null;
       this.color = color;
+      this.direccionimage=direccionimage;
+
     }
     
-    public Vehiculo(int id, String placa, String marca, String modelo, String tipoMotor, int año, double recorrido, String color, String tipoCombustible, double precio, String vidrios, String transmision){
-      this.img = id;
+    public Vehiculo(String placa, String marca, String modelo, String tipoMotor, int año, double recorrido, String color, String tipoCombustible, double precio, String vidrios, String transmision, String direccionimage){
+     
       this.placa = placa;
       this.marca = marca;
       this.modelo = modelo;
@@ -79,6 +85,7 @@ public class Vehiculo implements Serializable {
       this.traccion = null;
       this.transmision = transmision;
       this.color = color;
+      this.direccionimage=direccionimage;
     }
 
     public String getColor() {
@@ -90,9 +97,6 @@ public class Vehiculo implements Serializable {
     }
 
     
-    public int getImg() {
-        return img;
-    }
 
 
     public String getPlaca() {
@@ -140,10 +144,6 @@ public class Vehiculo implements Serializable {
     }
 
 
-    public void setImg(int id) {
-        this.img = id;
-    }
-
     public void setPlaca(String placa) {
         this.placa = placa;
     }
@@ -187,9 +187,21 @@ public class Vehiculo implements Serializable {
     public void setTraccion(String traccion) {
         this.traccion = traccion;
     } 
+
+    public String getDireccionimage() {
+        return direccionimage;
+    }
+
+    public void setDireccionimage(String direccionimage) {
+        this.direccionimage = direccionimage;
+    }
+    
+    
+    
+    
     @Override
     public String toString(){
-        return this.img+"|"+this.placa+"|"+this.marca+"|"+this.modelo+"|"+this.tipoMotor+"|"+this.año+"|"+this.recorrido+"|"+this.color+"|"+this.tipoCombustible+"|"+this.precio+"|"+this.vidrios+"|"+this.transmision+"|"+this.traccion;
+        return this.placa+"|"+this.marca+"|"+this.modelo+"|"+this.tipoMotor+"|"+this.año+"|"+this.recorrido+"|"+this.color+"|"+this.tipoCombustible+"|"+this.precio+"|"+this.vidrios+"|"+this.transmision+"|"+this.traccion+"|"+this.direccionimage;
     }
     @Override
     public boolean equals(Object obj) {
@@ -248,26 +260,26 @@ public class Vehiculo implements Serializable {
         }
         return vn;
     }
-     public static Vehiculo registroVehiculo(String tipo,int img,String placa, String marca, String modelo, String tipoMotor, int año, double recorrido, String color, String tipoCombustible, double precio, String vidrios, String transmision, String traccion) throws ErrorException{
+     public static Vehiculo registroVehiculo(String tipo,int img,String placa, String marca, String modelo, String tipoMotor, int año, double recorrido, String color, String tipoCombustible, double precio, String vidrios, String transmision, String traccion,String direccionimage) throws ErrorException{
          ArrayList<Vehiculo> vehiculos = Vehiculo.readFile(PATH);
          Vehiculo v1 = null;
          if(!searchByPlaca(vehiculos,placa).equals(placa)){
              switch (tipo) {
                  case "moto":
                  {
-                     v1 = new Vehiculo(img,placa,marca,modelo,tipoMotor,año,recorrido,color,tipoCombustible,precio);
+                     v1 = new Vehiculo(placa,marca,modelo,tipoMotor,año,recorrido,color,tipoCombustible,precio,direccionimage);
                      v1.saveFile(PATH,vehiculos);
                      return v1;
                  }
                  case "camioneta":
                  {
-                     v1 = new Vehiculo(img,placa,marca,modelo,tipoMotor,año,recorrido,color,tipoCombustible,precio,vidrios,transmision,traccion);
+                     v1 = new Vehiculo(placa,marca,modelo,tipoMotor,año,recorrido,color,tipoCombustible,precio,vidrios,transmision,traccion,direccionimage);
                      v1.saveFile(PATH,vehiculos);
                      return v1;
                  }       
                  case "auto":
                  {
-                     v1 = new Vehiculo(img,placa,marca,modelo,tipoMotor,año,recorrido,color,tipoCombustible,precio,vidrios,transmision);
+                     v1 = new Vehiculo(placa,marca,modelo,tipoMotor,año,recorrido,color,tipoCombustible,precio,vidrios,transmision,direccionimage);
                      v1.saveFile(PATH,vehiculos);
                      return v1;
                  }
