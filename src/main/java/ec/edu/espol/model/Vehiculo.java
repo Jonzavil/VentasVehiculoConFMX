@@ -260,7 +260,7 @@ public class Vehiculo implements Serializable {
         }
         return vn;
     }
-     public static Vehiculo registroVehiculo(String tipo,int img,String placa, String marca, String modelo, String tipoMotor, int año, double recorrido, String color, String tipoCombustible, double precio, String vidrios, String transmision, String traccion,String direccionimage) throws ErrorException{
+     public static Vehiculo registroVehiculo(String tipo,String placa, String marca, String modelo, String tipoMotor, int año, double recorrido, String color, String tipoCombustible, double precio, String vidrios, String transmision, String traccion,String direccionimage) throws ErrorException{
          ArrayList<Vehiculo> vehiculos = Vehiculo.readFile(PATH);
          Vehiculo v1 = null;
          if(!searchByPlaca(vehiculos,placa).equals(placa)){
