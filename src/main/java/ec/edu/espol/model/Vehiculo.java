@@ -294,7 +294,6 @@ public class Vehiculo implements Serializable {
      public static ArrayList<Vehiculo> busquedaPorVehiculo(String tipo){
         ArrayList<Vehiculo> v1=Vehiculo.readFile(PATH);
         ArrayList<Vehiculo> ofer=new ArrayList<>();
-        tipo=tipo.toLowerCase();
         for(Vehiculo v: v1){
             if(tipo.contains(v.color)&& tipo.contains(v.marca)){
                 ofer.add(v);
