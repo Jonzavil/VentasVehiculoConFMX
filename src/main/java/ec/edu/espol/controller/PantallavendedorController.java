@@ -55,6 +55,8 @@ public class PantallavendedorController implements Initializable {
     private VBox vboxofertas;
     @FXML
     private ScrollPane scrollpaneimagenes;
+    
+    
 
 
     /**
@@ -102,36 +104,36 @@ public class PantallavendedorController implements Initializable {
         Button btnsalir=new Button("Salir");
         camposregistro.setVgap(2);
         camposregistro.setHgap(8);
-        camposregistro.add(id, 0, 0);
-        camposregistro.add(campoid, 1, 0);
-        camposregistro.add(placa, 0, 1);
-        camposregistro.add(campoplaca, 1, 1);
-        camposregistro.add(marca, 0, 2);
-        camposregistro.add(campomarca, 1, 2);
-        camposregistro.add(modelo, 0, 3);
-        camposregistro.add(campomodelo, 1, 3);
-        camposregistro.add(tipoMotor, 0, 4);
-        camposregistro.add(campotipom, 1, 4);
-        camposregistro.add(year, 0, 5);
-        camposregistro.add(campoyear, 1, 5);
-        camposregistro.add(recorrido, 0, 6);
-        camposregistro.add(camporecorrido, 1, 6);
-        camposregistro.add(tipoCombustible, 0, 7);
-        camposregistro.add(campotipocombustible, 1, 7);
-        camposregistro.add(precio, 0, 8);
-        camposregistro.add(campoprecio, 1, 8);
-        camposregistro.add(vidrios, 0, 9);
-        camposregistro.add(campovidrio, 1, 9);
-        camposregistro.add(traccion, 0, 10);
-        camposregistro.add(campotraccion, 1, 10);
-        camposregistro.add(transmicion, 0, 11);
-        camposregistro.add(campotransmicion, 1, 11);
-        camposregistro.add(color, 0, 12);
-        camposregistro.add(campocolor, 1, 12);
-        camposregistro.add(btnsubirimagen,0,13);
-        camposregistro.add(direccionimage,1,13);
-        camposregistro.add(btnsalir,0,14);
-        camposregistro.add(btnregistrarvehi,1,14);
+//        camposregistro.add(id, 0, 0);
+//        camposregistro.add(campoid, 1, 0);
+        camposregistro.add(placa, 0, 0);
+        camposregistro.add(campoplaca, 1, 0);
+        camposregistro.add(marca, 0, 1);
+        camposregistro.add(campomarca, 1, 1);
+        camposregistro.add(modelo, 0, 2);
+        camposregistro.add(campomodelo, 1, 2);
+        camposregistro.add(tipoMotor, 0, 3);
+        camposregistro.add(campotipom, 1, 3);
+        camposregistro.add(year, 0, 4);
+        camposregistro.add(campoyear, 1, 4);
+        camposregistro.add(recorrido, 0, 5);
+        camposregistro.add(camporecorrido, 1, 5);
+        camposregistro.add(tipoCombustible, 0, 6);
+        camposregistro.add(campotipocombustible, 1, 6);
+        camposregistro.add(precio, 0, 7);
+        camposregistro.add(campoprecio, 1, 7);
+        camposregistro.add(vidrios, 0, 8);
+        camposregistro.add(campovidrio, 1, 8);
+        camposregistro.add(traccion, 0, 9);
+        camposregistro.add(campotraccion, 1, 9);
+        camposregistro.add(transmicion, 0, 10);
+        camposregistro.add(campotransmicion, 1, 10);
+        camposregistro.add(color, 0, 11);
+        camposregistro.add(campocolor, 1, 11);
+        camposregistro.add(btnsubirimagen,0,12);
+        camposregistro.add(direccionimage,1,12);
+        camposregistro.add(btnsalir,0,13);
+        camposregistro.add(btnregistrarvehi,1,13);
         //"^[0-9]+(.[0-9]+)?$"
 
         btnsubirimagen.setOnMouseClicked((MouseEvent n)->{
@@ -148,22 +150,30 @@ public class PantallavendedorController implements Initializable {
         
         btnregistrarvehi.setOnMouseClicked((MouseEvent x)->{
             ArrayList<Vehiculo> vehiculos = new ArrayList<>();
-            if(!campoid.getText().matches("[0-9]+$") || !campoplaca.getText().matches("[a-zA-Z_0-9]+$") || !campomarca.getText().matches("[a-zA-Z]+$") || !campomodelo.getText().matches("[a-zA-Z]+$") || !campotipom.getText().matches("[a-zA-Z]+$") || !campoyear.getText().matches("[0-9]+$") || !camporecorrido.getText().matches("[0-9]+$") || !campotipocombustible.getText().matches("[a-zA-Z]+$") || !campoprecio.getText().matches("[0-9]+$") || (!campovidrio.getText().matches("[a-zA-Z]+$") && campovidrio.getText()==null)|| (!campotraccion.getText().matches("[a-zA-Z]+$")&& campotraccion.getText()==null)|| (!campotransmicion.getText().matches("[a-zA-Z]+$") && campotransmicion.getText()==null) || !campocolor.getText().matches("[a-zA-Z]+$") || direccionimage.getText()==null){
+            if(!campoplaca.getText().matches("[a-zA-Z_0-9]+$") || !campomarca.getText().matches("[a-zA-Z]+$") || !campomodelo.getText().matches("[a-zA-Z]+$") || !campotipom.getText().matches("[a-zA-Z]+$") || !campoyear.getText().matches("[0-9]+$") || !camporecorrido.getText().matches("[0-9]+$") || !campotipocombustible.getText().matches("[a-zA-Z]+$") || !campoprecio.getText().matches("[0-9]+$") || (!campovidrio.getText().matches("[a-zA-Z]+$") && campovidrio.getText()==null)|| (!campotraccion.getText().matches("[a-zA-Z]+$")&& campotraccion.getText()==null)|| (!campotransmicion.getText().matches("[a-zA-Z]+$") && campotransmicion.getText()==null) || !campocolor.getText().matches("[a-zA-Z]+$") || direccionimage.getText()==null){
                 Alert h = new Alert(AlertType.ERROR,"Volver a registrarse correctamente");
                 h.show(); 
             }else{
                 if(campovidrio.getText()==null && campotransmicion.getText()==null && campotraccion.getText()==null){
-                    Vehiculo v1 = new Vehiculo(Integer.parseInt(campoid.getText()),campoplaca.getText(),campomarca.getText(),campomodelo.getText(),campotipom.getText(),Integer.parseInt(campoyear.getText()),Integer.parseInt(camporecorrido.getText()),campocolor.getText(),campotipocombustible.getText(),Integer.parseInt(campoprecio.getText())); 
+                    Vehiculo v1 = new Vehiculo(campoplaca.getText(),campomarca.getText(),campomodelo.getText(),campotipom.getText(),Integer.parseInt(campoyear.getText()),Integer.parseInt(camporecorrido.getText()),campocolor.getText(),campotipocombustible.getText(),Integer.parseInt(campoprecio.getText()),direccionimage.getText()); 
                     vehiculos.add(v1);
                     Vehiculo.saveFile("vehiculos.dat", vehiculos);
                     camposregistro.getChildren().clear();
                 }
-                else{
-                    Vehiculo v2 = new Vehiculo(Integer.parseInt(campoid.getText()),campoplaca.getText(),campomarca.getText(),campomodelo.getText(),campotipom.getText(),Integer.parseInt(campoyear.getText()),Integer.parseInt(camporecorrido.getText()),campocolor.getText(),campotipocombustible.getText(),Integer.parseInt(campoprecio.getText()),campovidrio.getText(),campotransmicion.getText(),campotraccion.getText());
+                else if(campotraccion.getText()==null){
+                    Vehiculo v2 = new Vehiculo(campoplaca.getText(),campomarca.getText(),campomodelo.getText(),campotipom.getText(),Integer.parseInt(campoyear.getText()),Integer.parseInt(camporecorrido.getText()),campocolor.getText(),campotipocombustible.getText(),Integer.parseInt(campoprecio.getText()),campovidrio.getText(),campotransmicion.getText(),direccionimage.getText());
                     vehiculos.add(v2);
                     Vehiculo.saveFile("vehiculos.dat", vehiculos);
                     camposregistro.getChildren().clear();
                 }
+                else{
+                    Vehiculo v3 = new Vehiculo(campoplaca.getText(),campomarca.getText(),campomodelo.getText(),campotipom.getText(),Integer.parseInt(campoyear.getText()),Integer.parseInt(camporecorrido.getText()),campocolor.getText(),campotipocombustible.getText(),Integer.parseInt(campoprecio.getText()),campovidrio.getText(),campotransmicion.getText(),campotraccion.getText(),direccionimage.getText());
+                    System.out.println(v3);
+                    vehiculos.add(v3);
+                    Vehiculo.saveFile("vehiculos.dat", vehiculos);
+                    camposregistro.getChildren().clear();
+                }
+                    
             }
             
         });
@@ -198,7 +208,16 @@ public class PantallavendedorController implements Initializable {
 
     @FXML
     private void eventoperfil(MouseEvent event) {
+        try {
+            FXMLLoader fxmloader = App.loadFXMLLoader("PerfilUsuario");
+            App.setRoot(fxmloader); 
+        } catch (IOException ex) {
+            Alert l = new Alert(AlertType.ERROR,"Error");
+            l.show();
+        }
     }
+        
+    
 
     @FXML
     private void salirpantallavendedor(MouseEvent event) {
